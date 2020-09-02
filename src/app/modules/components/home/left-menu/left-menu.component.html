@@ -1,0 +1,6 @@
+<button [disabled]="currentPath" class="nav-item" routerLink="/home">Home</button>
+<ng-container *ngFor="let route of navigation">
+    <a class="nav-item" routerLink="{{ route.link }}" routerLinkActive="active">
+        {{route.title}}
+    </a>
+</ng-container>
