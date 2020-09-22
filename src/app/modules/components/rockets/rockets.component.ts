@@ -22,7 +22,7 @@ export class RocketsComponent implements OnInit, OnDestroy  {
   ngOnInit(): void {
     this.rocketsService.getAllRockets().pipe(
       takeUntil(this.ngOnDestroy$),
-      tap(req => {this.rockets = req; console.log(req)})
+      tap(req => {this.rockets = req})
     ).subscribe();
   }
 
