@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './modules/components/home/home.component';
 import { RocketsComponent } from './modules/components/rockets/rockets.component';
 import { DragonsComponent } from './modules/components/dragons/dragons.component';
+import { RocketItemComponent } from './modules/components/rockets/rocket-item/rocket-item.component';
 
 
 const routes: Routes = [
@@ -18,6 +19,10 @@ const routes: Routes = [
   {
     path: 'rockets',
     component: RocketsComponent
+  },
+  {
+    path: 'rockets/rocket/:id',
+    component: RocketItemComponent
   },
   {
     path: 'dragons',

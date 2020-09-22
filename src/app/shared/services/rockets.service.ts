@@ -12,4 +12,8 @@ export class RocketsService {
   getAllRockets(): Observable<any> {
     return this.http.get<any>(`https://api.spacexdata.com/v3/rockets`);
   }
+
+  getRocketById(rocket_id) {
+    return this.http.get(`https://api.spacexdata.com/v3/rockets/${rocket_id}`);
+  }
 }

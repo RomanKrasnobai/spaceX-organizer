@@ -5,16 +5,19 @@ import { MaterialModule } from 'src/app/material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ShowByDatePipe } from 'src/app/shared/pipes/show-by-date.pipe';
+import { RouterModule } from '@angular/router';
+import { RocketItemComponent } from './rocket-item/rocket-item.component';
 
 
 
 @NgModule({
-  declarations: [RocketsComponent,ShowByDatePipe],
+  declarations: [RocketsComponent,ShowByDatePipe, RocketItemComponent],
   imports: [
     CommonModule,
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
+    RouterModule,
   ]
 })
 export class RocketsModule { }

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-left-menu',
@@ -8,18 +7,15 @@ import { Router, NavigationEnd } from '@angular/router';
 })
 export class LeftMenuComponent implements OnInit {
   navigation = [
+    {title: 'Home', link: '/home'},
     {title: 'Rockets', link: '/rockets'},
     {title: 'Dragons', link: '/dragons'},
   ];
   currentPath: boolean;
-  constructor(private router: Router) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.router.events.subscribe(event => { 
-      if (event instanceof NavigationEnd) {
-        this.currentPath = event.url === '/home';
-      }
-    });
+
   }
 
 }
