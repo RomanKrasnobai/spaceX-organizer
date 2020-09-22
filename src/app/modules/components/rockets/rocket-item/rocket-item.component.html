@@ -1,0 +1,13 @@
+<div>
+    <a [routerLink]="['/rockets']">Back</a>
+
+    <span class="material-icons" (click)="saveToFavourite()">
+        favorite_border
+    </span>
+
+    <p>{{rocketInfo?.rocket_id}}</p>
+    <p>{{rocketInfo?.description}}</p>
+    <ng-container *ngFor="let img of rocketInfo?.flickr_images">
+        <img src="{{img}}" width="500">
+    </ng-container>
+</div>

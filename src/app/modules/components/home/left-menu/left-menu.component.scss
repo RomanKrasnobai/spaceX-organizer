@@ -9,17 +9,10 @@
 .nav-item {
     text-decoration: none;
     color: black;
-    padding: 5px 20px;
+    padding: 10px 20px;
 }
 
-button.nav-item {
-    text-align: left;
-    border: none;
-    font-size: 16px;
-    background-color: transparent;
-    cursor: pointer;
-    &:disabled {
-        color: #D6D7D6;
-        cursor: default;
-    }
+.active-route {
+  border-left: 3px solid #a6a6a6;
+  color: #a6a6a6;
 }
