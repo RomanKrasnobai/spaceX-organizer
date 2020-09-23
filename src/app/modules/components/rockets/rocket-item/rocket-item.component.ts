@@ -3,7 +3,7 @@ import { RocketsService } from 'src/app/shared/services/rockets.service';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
-import { SaveFavouriteRocket } from 'src/app/shared/services/save-favourite-rocket.service';
+import { SaveFavouriteRocketService } from 'src/app/shared/services/save-favourite-rocket.service';
 
 @Component({
   selector: 'app-rocket-item',
@@ -16,7 +16,7 @@ export class RocketItemComponent implements OnInit, OnDestroy {
   ngOnDestroy$ = new Subject();
   constructor(
     private rocketsService: RocketsService,
-    public saveFavouriteRocket: SaveFavouriteRocket,
+    private saveFavouriteRocket: SaveFavouriteRocketService,
     private activatedRoute: ActivatedRoute,
     ) { }
 
@@ -31,6 +31,7 @@ export class RocketItemComponent implements OnInit, OnDestroy {
 
   saveToFavourite() {
     this.saveFavouriteRocket.saveToLocalStorage(this.rocketInfo);
+    this.saveFavouriteRocket.nextRocket(this.rocketInfo);
     this.isHiddenFavouriteIcon = true;
   }
 
