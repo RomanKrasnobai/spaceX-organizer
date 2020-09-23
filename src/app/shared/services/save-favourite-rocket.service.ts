@@ -5,12 +5,12 @@ import { Subject } from 'rxjs';
     providedIn: 'root'
 })
 export class SaveFavouriteRocket {
-    private rocket = new Subject();
-    sharedRocket = this.rocket.asObservable();
+  private rocket = new Subject();
+  sharedRocket = this.rocket.asObservable();
 
-    constructor() { }
+  constructor() { }
 
-    nextRocket(rocket) {
-        this.rocket.next(rocket);
-    }
+  nextRocket(rocket) {
+    this.rocket.next(rocket);
+  }
 }

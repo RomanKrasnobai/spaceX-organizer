@@ -26,13 +26,6 @@ export class RocketsComponent implements OnInit, OnDestroy  {
     ).subscribe();
   }
 
-  navigate() {
-    this.rocketsService.getRocketByLimit(1).subscribe(req => {
-      console.log(req);
-      this.rockets = req;
-    });
-  }
-
   showAllData() {
     this.setDate.setValue(null);
   }

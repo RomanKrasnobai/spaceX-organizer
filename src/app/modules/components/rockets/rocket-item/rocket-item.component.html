@@ -1,13 +1,21 @@
 <div>
-    <a [routerLink]="['/rockets']">Back</a>
+  <span class="material-icons pointer" [routerLink]="['/rockets']">
+    arrow_back
+  </span>
 
-    <span class="material-icons" (click)="saveToFavourite()">
-        favorite_border
-    </span>
+  <span class="material-icons"
+        *ngIf="!isHiddenFavouriteIcon"
+        (click)="saveToFavourite()"
+  >
+    favorite_border
+  </span>
+  <span class="material-icons" *ngIf="isHiddenFavouriteIcon">
+    favorite
+  </span>
 
-    <p>{{rocketInfo?.rocket_id}}</p>
-    <p>{{rocketInfo?.description}}</p>
-    <ng-container *ngFor="let img of rocketInfo?.flickr_images">
-        <img src="{{img}}" width="500">
-    </ng-container>
+  <p>{{rocketInfo?.rocket_id}}</p>
+  <p>{{rocketInfo?.description}}</p>
+  <ng-container *ngFor="let img of rocketInfo?.flickr_images">
+    <img alt="img" src="{{img}}" width="500">
+  </ng-container>
 </div>

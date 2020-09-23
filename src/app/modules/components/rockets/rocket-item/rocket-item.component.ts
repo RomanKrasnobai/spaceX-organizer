@@ -11,7 +11,8 @@ import { SaveFavouriteRocket } from 'src/app/shared/services/save-favourite-rock
   styleUrls: ['./rocket-item.component.scss']
 })
 export class RocketItemComponent implements OnInit, OnDestroy {
-  rocketInfo;
+  rocketInfo: any;
+  isHiddenFavouriteIcon = false;
   ngOnDestroy$ = new Subject();
   constructor(
     private rocketsService: RocketsService,
@@ -29,6 +30,7 @@ export class RocketItemComponent implements OnInit, OnDestroy {
   }
   saveToFavourite() {
     localStorage.setItem('favourite', JSON.stringify([this.rocketInfo]));
+    this.isHiddenFavouriteIcon = true;
     // this.saveFavouriteRocket.sharedRocket.subscribe(rocket => this.sharedRocket = rocket);
   }
 

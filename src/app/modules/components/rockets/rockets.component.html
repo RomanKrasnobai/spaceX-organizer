@@ -1,24 +1,22 @@
 <div class="main-block">
-    <p>Filtering by first flight date:</p>
-    <mat-form-field appearance="fill">
-        <mat-label>Filtering by date</mat-label>
-        <mat-select [formControl]="setDate">
-            <mat-option *ngFor="let flight of rockets" [value]="flight.first_flight">
-                {{flight.first_flight}}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
+  <p>Filtering by first flight date:</p>
+  <mat-form-field appearance="fill">
+    <mat-label>Filtering by date</mat-label>
+    <mat-select [formControl]="setDate">
+      <mat-option *ngFor="let flight of rockets" [value]="flight.first_flight">
+        {{flight.first_flight}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 
-    <button mat-button (click)="showAllData()" *ngIf="setDate?.value">Show All data</button>
+  <button mat-button (click)="showAllData()" *ngIf="setDate?.value">Show All data</button>
 
-  <a (click)="navigate()">Navigate</a>
-
-    <div class="rocket-item"
-         *ngFor="let rocket of rockets | showByDate: setDate?.value"
-         [routerLink]="['/rockets/rocket', rocket.rocket_id]"
-    >
-        <p>{{rocket.rocket_name}}</p>
-        <div>{{rocket.country}}</div>
-        <img src="{{rocket.flickr_images[0]}}" width="300px" alt="img">
-    </div>
+  <div class="rocket-item"
+    *ngFor="let rocket of rockets | showByDate: setDate?.value"
+    [routerLink]="['/rockets/rocket', rocket.rocket_id]"
+  >
+    <p>{{rocket.rocket_name}}</p>
+    <div>{{rocket.country}}</div>
+    <img src="{{rocket.flickr_images[0]}}" width="300px" alt="img">
+  </div>
 </div>
