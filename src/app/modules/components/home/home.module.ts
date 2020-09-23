@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HeaderComponent } from 'src/app/shared/components/header/header.component';
-import { LeftMenuComponent } from './left-menu/left-menu.component';
 import { MaterialModule } from 'src/app/material.module';
 import { HomeComponent } from './home.component';
 import { RouterModule } from '@angular/router';
+import {LeftMenuComponent} from './left-menu/left-menu.component';
 
 
 @NgModule({

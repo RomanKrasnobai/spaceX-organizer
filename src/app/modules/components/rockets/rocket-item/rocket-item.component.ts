@@ -16,7 +16,7 @@ export class RocketItemComponent implements OnInit, OnDestroy {
   ngOnDestroy$ = new Subject();
   constructor(
     private rocketsService: RocketsService,
-    private saveFavouriteRocket: SaveFavouriteRocket,
+    public saveFavouriteRocket: SaveFavouriteRocket,
     private activatedRoute: ActivatedRoute,
     ) { }
 
@@ -28,10 +28,10 @@ export class RocketItemComponent implements OnInit, OnDestroy {
       ).subscribe();
     });
   }
+
   saveToFavourite() {
-    localStorage.setItem('favourite', JSON.stringify([this.rocketInfo]));
+    this.saveFavouriteRocket.saveToLocalStorage(this.rocketInfo);
     this.isHiddenFavouriteIcon = true;
-    // this.saveFavouriteRocket.sharedRocket.subscribe(rocket => this.sharedRocket = rocket);
   }
 
   ngOnDestroy() {
