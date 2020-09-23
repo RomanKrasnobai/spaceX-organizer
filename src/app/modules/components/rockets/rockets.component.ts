@@ -17,13 +17,20 @@ export class RocketsComponent implements OnInit, OnDestroy  {
 
   constructor(
     private rocketsService: RocketsService,
-    ) { }
+  ) { }
 
   ngOnInit(): void {
     this.rocketsService.getAllRockets().pipe(
       takeUntil(this.ngOnDestroy$),
-      tap(req => {this.rockets = req})
+      tap(req => this.rockets = req)
     ).subscribe();
+  }
+
+  navigate() {
+    this.rocketsService.getRocketByLimit(1).subscribe(req => {
+      console.log(req);
+      this.rockets = req;
+    });
   }
 
   showAllData() {

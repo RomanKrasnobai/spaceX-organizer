@@ -11,6 +11,8 @@
 
     <button mat-button (click)="showAllData()" *ngIf="setDate?.value">Show All data</button>
 
+  <a (click)="navigate()">Navigate</a>
+
     <div class="rocket-item"
          *ngFor="let rocket of rockets | showByDate: setDate?.value"
          [routerLink]="['/rockets/rocket', rocket.rocket_id]"
