@@ -11,12 +11,12 @@
 
   <button mat-button (click)="showAllData()" *ngIf="setDate?.value">Show All data</button>
 
-  <div class="rocket-item"
+  <div class="rocket-item pointer"
     *ngFor="let rocket of rockets | showByDate: setDate?.value"
     [routerLink]="['/rockets/rocket', rocket.rocket_id]"
   >
-    <p>{{rocket.rocket_name}}</p>
-    <div>{{rocket.country}}</div>
-    <img src="{{rocket.flickr_images[0]}}" width="300px" alt="img">
+    <p>Name: <span class="name">{{rocket.rocket_name}}</span></p>
+    <div>Country: {{rocket.country}}</div>
+    <img class="img" src="{{rocket.flickr_images[0]}}" width="500px" alt="img">
   </div>
 </div>

@@ -24,7 +24,7 @@
     </span>
   </div>
 
-  <p>{{rocketInfo?.rocket_id}}</p>
+  <h4>{{rocketInfo?.rocket_id | uppercase}}</h4>
   <p>{{rocketInfo?.description}}</p>
 
   <ng-container *ngFor="let img of rocketInfo?.flickr_images">
