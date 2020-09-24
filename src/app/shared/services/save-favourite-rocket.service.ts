@@ -9,6 +9,7 @@ export class SaveFavouriteRocketService {
   sharedRocket$ = this.rocket.asObservable();
   storageArr = [];
   isExistRocketInStorage: boolean;
+
   constructor() { }
 
   saveToLocalStorage(data) {

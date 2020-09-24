@@ -7,7 +7,7 @@ import {SaveFavouriteRocketService} from '../../../../shared/services/save-favou
   styleUrls: ['./left-menu.component.scss']
 })
 export class LeftMenuComponent implements OnInit {
-  storageValue: any;
+  storageValue: object | string;
   navigation = [
     { title: 'Home', link: '/home' },
     { title: 'Rockets', link: '/rockets' },
@@ -19,7 +19,7 @@ export class LeftMenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.saveFavouriteRocketService.sharedRocket$
-      .subscribe(value => this.storageValue = value?.length || 0);
+      .subscribe(value => this.storageValue = value?.length || 'No rockets');
   }
 
 }

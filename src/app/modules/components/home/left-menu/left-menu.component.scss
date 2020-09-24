@@ -1,18 +1,26 @@
 :host {
-    display: flex;
-    flex-direction: column;
-    width: 17%;
-    height: 100vh;
-    background-color: #f2ebeb;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  width: 17%;
+  height: 100vh;
+  background-color: #f2ebeb;
 }
 
 .nav-item {
-    text-decoration: none;
-    color: black;
-    padding: 10px 20px;
+  text-decoration: none;
+  color: black;
+  padding: 10px 20px;
 }
 
 .active-route {
   border-left: 3px solid #a6a6a6;
   color: #a6a6a6;
+}
+
+.favourite-rockets {
+  position: absolute;
+  bottom: 15px;
+  padding: 10px 20px;
+  font-size: 12px;
 }

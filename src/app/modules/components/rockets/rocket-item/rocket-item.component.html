@@ -1,23 +1,32 @@
 <div>
-  <span class="material-icons pointer" [routerLink]="['/rockets']">
-    arrow_back
-  </span>
+  <div class="back-arrow pointer" [routerLink]="['/rockets']">
+    <span class="material-icons">
+      arrow_back
+    </span>
+    <i>Back</i>
+  </div>
 
-  <span class="material-icons"
-        *ngIf="!isHiddenFavouriteIcon"
-        (click)="saveToFavourite()"
-  >
-    favorite_border
-  </span>
-  <span class="material-icons"
-        *ngIf="isHiddenFavouriteIcon"
-        matTooltip="Rocket already favourite"
-  >
-    favorite
-  </span>
+  <div class="favourite-title">
+    <ng-container *ngIf="!isHiddenFavouriteIcon; else favouriteTitle">Add rocket to favourite</ng-container>
+    <ng-template #favouriteTitle>Favourite rocket!</ng-template>
+    <span class="material-icons pointer"
+          matTooltip="Add to Favourite"
+          *ngIf="!isHiddenFavouriteIcon"
+          (click)="saveToFavourite()"
+    >
+      favorite_border
+    </span>
+    <span class="material-icons exist-favourite-icon"
+          *ngIf="isHiddenFavouriteIcon"
+          matTooltip="Rocket already favourite"
+    >
+      favorite
+    </span>
+  </div>
 
   <p>{{rocketInfo?.rocket_id}}</p>
   <p>{{rocketInfo?.description}}</p>
+
   <ng-container *ngFor="let img of rocketInfo?.flickr_images">
     <img alt="img" src="{{img}}" width="500">
   </ng-container>

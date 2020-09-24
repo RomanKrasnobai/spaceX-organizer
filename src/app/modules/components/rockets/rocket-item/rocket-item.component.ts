@@ -15,6 +15,7 @@ export class RocketItemComponent implements OnInit, OnDestroy {
   isHiddenFavouriteIcon = false;
   ngOnDestroy$ = new Subject();
   storage = JSON.parse(localStorage.getItem('favourite'));
+
   constructor(
     private rocketsService: RocketsService,
     private saveFavouriteRocket: SaveFavouriteRocketService,
@@ -27,7 +28,7 @@ export class RocketItemComponent implements OnInit, OnDestroy {
         takeUntil(this.ngOnDestroy$),
         tap(data => {
           this.rocketInfo = data;
-          for (let i = 0; i < this.storage.length; i++) {
+          for (let i = 0; i < this.storage?.length; i++) {
             this.isHiddenFavouriteIcon = this.storage[i].id === this.rocketInfo.id;
           }
         })
