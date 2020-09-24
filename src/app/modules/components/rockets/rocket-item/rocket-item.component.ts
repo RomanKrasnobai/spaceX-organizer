@@ -29,7 +29,12 @@ export class RocketItemComponent implements OnInit, OnDestroy {
         tap(data => {
           this.rocketInfo = data;
           for (let i = 0; i < this.storage?.length; i++) {
-            this.isHiddenFavouriteIcon = this.storage[i].id === this.rocketInfo.id;
+             if (this.storage[i].id === this.rocketInfo.id) {
+               this.isHiddenFavouriteIcon = true;
+               break;
+             } else {
+               this.isHiddenFavouriteIcon = false;
+             }
           }
         })
       ).subscribe();
