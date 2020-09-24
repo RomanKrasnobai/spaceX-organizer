@@ -32,11 +32,9 @@ export class SaveFavouriteRocketService {
   }
 
   private isExistedRocket(storage, obj) {
-    console.log(storage, obj);
     storage.forEach(el => {
-      this.isExistRocketInStorage =  el.id === obj.id;
+      this.isExistRocketInStorage = el.id === obj.id;
     });
-    console.log(this.isExistRocketInStorage);
   }
 
   addNextRocket(rocket) {
