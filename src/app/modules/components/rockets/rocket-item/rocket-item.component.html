@@ -1,4 +1,4 @@
-<div>
+<div class="block-wrapper">
   <div class="back-arrow pointer" [routerLink]="['/rockets']">
     <span class="material-icons">
       arrow_back
@@ -7,8 +7,8 @@
   </div>
 
   <div class="favourite-title">
-    <ng-container *ngIf="!isHiddenFavouriteIcon; else favouriteTitle">Add rocket to favourite</ng-container>
-    <ng-template #favouriteTitle>Favourite rocket!</ng-template>
+    <ng-container *ngIf="!isHiddenFavouriteIcon; else favouriteTitle"><span>Add rocket to favourite</span></ng-container>
+    <ng-template #favouriteTitle><span>Favourite rocket!</span></ng-template>
     <span class="material-icons pointer"
           matTooltip="Add to Favourite"
           *ngIf="!isHiddenFavouriteIcon"
@@ -28,6 +28,6 @@
   <p>{{rocketInfo?.description}}</p>
 
   <ng-container *ngFor="let img of rocketInfo?.flickr_images">
-    <img alt="img" src="{{img}}" width="500">
+    <img class="img" alt="img" src="{{img}}" width="500">
   </ng-container>
 </div>

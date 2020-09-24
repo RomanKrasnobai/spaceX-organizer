@@ -2,17 +2,29 @@
   width: 100%;
 }
 
+.block-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
 .back-arrow {
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
+  margin: 20px 0;
 }
 
 .favourite-title {
   display: flex;
   align-items: center;
+  & span:first-child {
+    margin-right: 10px;
+  }
 }
 
 .exist-favourite-icon {
   cursor: default;
+}
+
+.img {
+  padding-bottom: 10px;
 }
