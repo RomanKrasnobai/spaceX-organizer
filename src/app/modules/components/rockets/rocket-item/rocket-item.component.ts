@@ -31,8 +31,9 @@ export class RocketItemComponent implements OnInit, OnDestroy {
 
   saveToFavourite() {
     this.saveFavouriteRocket.saveToLocalStorage(this.rocketInfo);
-    this.saveFavouriteRocket.nextRocket(this.rocketInfo);
-    this.isHiddenFavouriteIcon = true;
+    if (!this.saveFavouriteRocket.isExistRocketInStorage) {
+      this.isHiddenFavouriteIcon = true;
+    }
   }
 
   ngOnDestroy() {
