@@ -1,7 +1,7 @@
 <p>Capsules info</p>
-<mat-form-field appearance="fill">
+<mat-form-field class="serial-select" appearance="fill">
   <mat-label>Sort by serial</mat-label>
-  <mat-select (selectionChange)="selectSerial($event)">
+  <mat-select (selectionChange)="sortBySerial($event)">
     <mat-option
       *ngFor="let cap of capsules"
       [value]="cap?.capsule_serial"
@@ -13,8 +13,28 @@
 
 <span
   class="material-icons pointer"
-  *ngIf="isHiddenClean"
-  (click)="cleanSetSerial()"
+  *ngIf="isHiddenCleanSerial"
+  (click)="cleanSortBySerial()"
+>
+  clear
+</span>
+
+<mat-form-field appearance="fill">
+  <mat-label>Sort by status</mat-label>
+  <mat-select (selectionChange)="sortByStatus($event)">
+    <mat-option
+      *ngFor="let status of capsulesStatuses"
+      [value]="status"
+    >
+      {{status}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<span
+  class="material-icons pointer"
+  *ngIf="isHiddenCleanStatus"
+  (click)="cleanSortByStatus()"
 >
   clear
 </span>
@@ -23,11 +43,13 @@
   <tr>
     <th>Capsule</th>
     <th>Serial</th>
+    <th>Status</th>
     <th>Launch</th>
   </tr>
   <tr *ngFor="let capsule of capsules">
     <td>{{capsule?.capsule_id}}</td>
     <td>{{capsule?.capsule_serial}}</td>
+    <td>{{capsule?.status}}</td>
     <td>{{capsule?.original_launch | date: 'short'}}</td>
   </tr>
 </table>

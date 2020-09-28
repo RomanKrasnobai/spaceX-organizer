@@ -11,8 +11,10 @@ import {CapsulesInterface} from '../../../shared/models/capsules.interface';
 })
 export class CapsulesComponent implements OnInit, OnDestroy {
   capsules: CapsulesInterface[];
+  capsulesStatuses = ['retired', 'unknown', 'active', 'destroyed'];
   ngOnDestroy$ = new Subject();
-  isHiddenClean = false;
+  isHiddenCleanSerial = false;
+  isHiddenCleanStatus = false;
 
   constructor(private capsulesService: CapsulesService) { }
 
@@ -27,18 +29,30 @@ export class CapsulesComponent implements OnInit, OnDestroy {
     ).subscribe();
   }
 
-  selectSerial(event) {
+  sortBySerial(event) {
     this.capsulesService.getAllCapsules(event.value).pipe(
       takeUntil(this.ngOnDestroy$),
       tap(req => this.capsules = req)
     ).subscribe();
-
-    this.isHiddenClean = true;
+    this.isHiddenCleanSerial = true;
   }
 
-  cleanSetSerial() {
+  cleanSortBySerial() {
     this.getCapsules();
-    this.isHiddenClean = false;
+    this.isHiddenCleanSerial = false;
+  }
+
+  sortByStatus(event) {
+    this.capsulesService.getCapsulesByStatus(event.value).pipe(
+      takeUntil(this.ngOnDestroy$),
+      tap(req => this.capsules = req)
+    ).subscribe();
+    this.isHiddenCleanStatus = true;
+  }
+
+  cleanSortByStatus() {
+    this.getCapsules();
+    this.isHiddenCleanStatus = false;
   }
 
   ngOnDestroy() {

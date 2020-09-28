@@ -6,18 +6,19 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class CapsulesService {
+  url = `https://api.spacexdata.com/v3/capsules`;
 
   constructor(private http: HttpClient) { }
 
   getAllCapsules(serial?: string): Observable<any> {
-    const url = `https://api.spacexdata.com/v3/capsules`;
-
     if (serial) {
-      return this.http.get(url,
-        {params: { capsule_serial: serial }}
-      );
+      return this.http.get(this.url, {params: { capsule_serial: serial }});
     } else {
-      return this.http.get(url);
+      return this.http.get(this.url);
     }
+  }
+
+  getCapsulesByStatus(status: string): Observable<any> {
+    return this.http.get(this.url, { params: {status} });
   }
 }

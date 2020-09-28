@@ -1,11 +1,16 @@
+.serial-select {
+  margin-right: 5px;
+}
+
 table, td, th {
-  border: 1px solid #ddd;
+  border-top: 1px solid #ddd;
   text-align: left;
 }
 
 table {
   border-collapse: collapse;
   width: 100%;
+  margin-bottom: 15px;
 }
 
 th, td {
