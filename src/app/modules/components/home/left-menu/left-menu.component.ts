@@ -30,6 +30,8 @@ export class LeftMenuComponent implements OnInit {
 
   openFavouriteModal() {
     const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = '600px';
+    dialogConfig.height = '300px';
     dialogConfig.data = this.storageValue;
     this.dialog.open(FavouriteRocketsModalComponent, dialogConfig);
   }

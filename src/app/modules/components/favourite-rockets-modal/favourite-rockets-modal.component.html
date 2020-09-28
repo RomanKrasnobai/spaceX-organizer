@@ -1,4 +1,6 @@
-<p>favourite-rockets-modal works!</p>
+<ng-container *ngIf="data?.length; else empty">
 <div *ngFor="let rocket of data">
   {{rocket?.rocket_name}}
 </div>
+</ng-container>
+<ng-template #empty>No favourite rockets yet</ng-template>
