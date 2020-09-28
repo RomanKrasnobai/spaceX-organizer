@@ -1,3 +1,10 @@
-<ng-container *ngFor="let dragon of dragons">
-    <p>{{dragon.name}}</p>
-</ng-container>
+<div class="wrapper" *ngFor="let dragon of dragons">
+  <h3>{{dragon.name}}</h3>
+  <section>{{dragon.description}}</section>
+  <p>
+    <a class="wikipedia-title" target="_blank" href="{{dragon.wikipedia}}">On Wikipedia</a>
+  </p>
+  <ng-container *ngFor="let img of dragon.flickr_images">
+    <img class="img" alt="dragon" src="{{img}}" width="500">
+  </ng-container>
+</div>

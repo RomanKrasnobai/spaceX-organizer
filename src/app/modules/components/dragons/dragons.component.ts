@@ -17,7 +17,10 @@ export class DragonsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.dragonsService.getAllDragons().pipe(
       takeUntil(this.ngOnDestroy$),
-      tap(req => this.dragons = req)
+      tap(req => {
+        this.dragons = req;
+        // console.log(this.dragons);
+      })
     ).subscribe();
   }
 

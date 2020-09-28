@@ -1,0 +1,24 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.wikipedia-title {
+  display: flex;
+  align-items: center;
+  &::before {
+    content: '';
+    background-image: url("../../../../assets/images/wikipedia-283043.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: block;
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+  }
+}
+
+.img {
+  padding-bottom: 10px;
+}

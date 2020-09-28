@@ -8,6 +8,7 @@ import { HomeModule } from './modules/components/home/home.module';
 import { RocketsModule } from './modules/components/rockets/rockets.module';
 import { DragonsModule } from './modules/components/dragons/dragons.module';
 import {CapsulesModule} from './modules/components/capsules/capsules.module';
+import {FavouriteRocketsModalModule} from './modules/components/favourite-rockets-modal/favourite-rockets-modal.module';
 
 
 @NgModule({
@@ -20,9 +21,10 @@ import {CapsulesModule} from './modules/components/capsules/capsules.module';
     BrowserAnimationsModule,
     SharedModule,
     HomeModule,
-    RocketsModule,
-    DragonsModule,
-    CapsulesModule,
+    // RocketsModule,
+    // DragonsModule,
+    // CapsulesModule,
+    // FavouriteRocketsModalModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

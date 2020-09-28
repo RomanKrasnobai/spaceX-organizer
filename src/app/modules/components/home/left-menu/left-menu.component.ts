@@ -1,6 +1,8 @@
-import { Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {SaveFavouriteRocketService} from '../../../../shared/services/save-favourite-rocket.service';
 import {NavigationInterface} from '../../../../shared/models/navigation.interface';
+import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
+import {FavouriteRocketsModalComponent} from '../../favourite-rockets-modal/favourite-rockets-modal.component';
 
 @Component({
   selector: 'app-left-menu',
@@ -16,10 +18,19 @@ export class LeftMenuComponent implements OnInit {
     { title: 'Dragons', link: '/dragons' },
   ];
 
-  constructor(private saveFavouriteRocketService: SaveFavouriteRocketService) { }
+  constructor(
+    private saveFavouriteRocketService: SaveFavouriteRocketService,
+    public dialog: MatDialog,
+  ) { }
 
   ngOnInit(): void {
     this.saveFavouriteRocketService.sharedRocket$
-      .subscribe(value => this.storageValue = value?.length || 'No rockets');
+      .subscribe(value => this.storageValue = value || 'No rockets');
+  }
+
+  openFavouriteModal() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = this.storageValue;
+    this.dialog.open(FavouriteRocketsModalComponent, dialogConfig);
   }
 }

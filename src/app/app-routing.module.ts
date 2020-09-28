@@ -22,7 +22,7 @@ const routes: Routes = [
     component: RocketsComponent
   },
   {
-    path: 'rockets/rocket/:id',
+    path: 'rockets/:id',
     component: RocketItemComponent
   },
   {

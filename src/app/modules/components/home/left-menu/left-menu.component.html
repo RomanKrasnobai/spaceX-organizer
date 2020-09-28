@@ -5,5 +5,11 @@
 </ng-container>
 
 <div class="favourite-rockets">
-  Favourite rockets: {{storageValue}}
+  <button mat-button (click)="openFavouriteModal()">
+    <span class="material-icons"
+    >
+      favorite
+    </span>
+    Favourite rockets: {{storageValue?.length}}
+  </button>
 </div>

@@ -13,7 +13,7 @@
 
   <div class="rocket-item pointer"
     *ngFor="let rocket of rockets | showByDate: setDate?.value"
-    [routerLink]="['/rockets/rocket', rocket.rocket_id]"
+    [routerLink]="['/rockets', rocket.rocket_id]"
   >
     <p>Name: <span class="name">{{rocket.rocket_name}}</span></p>
     <div>Country: {{rocket.country}}</div>
