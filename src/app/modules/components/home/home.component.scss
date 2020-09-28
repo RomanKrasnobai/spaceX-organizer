@@ -1,5 +1,5 @@
 :host {
-    width: 100%;
+  width: 100%;
 }
 
 .wrapper {
@@ -10,6 +10,10 @@
   background-position: center;
   display: block;
   color: #fff;
-  margin-top: -20px;
   margin-left: -20px;
+  padding-left: 5px;
+
+  h2 {
+    margin-top: 0;
+  }
 }
