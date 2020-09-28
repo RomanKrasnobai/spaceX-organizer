@@ -3,6 +3,7 @@ import { RocketsService } from 'src/app/shared/services/rockets.service';
 import { Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
+import { RocketsInterface } from '../../../shared/models/rockets.interface';
 
 
 @Component({
@@ -11,7 +12,7 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./rockets.component.scss']
 })
 export class RocketsComponent implements OnInit, OnDestroy  {
-  rockets: any;
+  rockets: RocketsInterface[];
   ngOnDestroy$ = new Subject();
   setDate = new FormControl();
 

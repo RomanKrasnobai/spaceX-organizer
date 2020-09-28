@@ -5,7 +5,8 @@ import {BehaviorSubject} from 'rxjs';
     providedIn: 'root'
 })
 export class SaveFavouriteRocketService {
-  private rocket = new BehaviorSubject(JSON.parse(localStorage.getItem('favourite')));
+  favouriteStorageKey = 'favourite';
+  private rocket = new BehaviorSubject(JSON.parse(localStorage.getItem(this.favouriteStorageKey)));
   sharedRocket$ = this.rocket.asObservable();
   storageArr = [];
   isExistRocketInStorage: boolean;
@@ -13,21 +14,21 @@ export class SaveFavouriteRocketService {
   constructor() { }
 
   saveToLocalStorage(data) {
-    if (localStorage.getItem('favourite')) {
-      this.storageArr = JSON.parse(localStorage.getItem('favourite'));
+    if (localStorage.getItem(this.favouriteStorageKey)) {
+      this.storageArr = JSON.parse(localStorage.getItem(this.favouriteStorageKey));
       this.isExistedRocket(this.storageArr, data);
       if (this.isExistRocketInStorage) {
         return;
       } else {
         this.storageArr.push(data);
-        localStorage.setItem('favourite', JSON.stringify(this.storageArr));
+        localStorage.setItem(this.favouriteStorageKey, JSON.stringify(this.storageArr));
         this.addNextRocket(this.storageArr);
       }
     } else {
-      localStorage.setItem('favourite', JSON.stringify(this.storageArr));
+      localStorage.setItem(this.favouriteStorageKey, JSON.stringify(this.storageArr));
       this.isExistedRocket(this.storageArr, data);
       this.storageArr.push(data);
-      localStorage.setItem('favourite', JSON.stringify(this.storageArr));
+      localStorage.setItem(this.favouriteStorageKey, JSON.stringify(this.storageArr));
       this.addNextRocket(this.storageArr);
     }
   }

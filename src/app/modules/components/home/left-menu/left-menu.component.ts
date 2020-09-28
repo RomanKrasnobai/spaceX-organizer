@@ -1,5 +1,6 @@
 import { Component, OnInit} from '@angular/core';
 import {SaveFavouriteRocketService} from '../../../../shared/services/save-favourite-rocket.service';
+import {NavigationInterface} from '../../../../shared/models/navigation.interface';
 
 @Component({
   selector: 'app-left-menu',
@@ -8,7 +9,7 @@ import {SaveFavouriteRocketService} from '../../../../shared/services/save-favou
 })
 export class LeftMenuComponent implements OnInit {
   storageValue: object | string;
-  navigation = [
+  navigation: NavigationInterface[] = [
     { title: 'Home', link: '/home' },
     { title: 'Rockets', link: '/rockets' },
     { title: 'Capsules', link: '/capsules' },
@@ -21,5 +22,4 @@ export class LeftMenuComponent implements OnInit {
     this.saveFavouriteRocketService.sharedRocket$
       .subscribe(value => this.storageValue = value?.length || 'No rockets');
   }
-
 }

@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {CapsulesService} from '../../../shared/services/capsules.service';
 import {Subject} from 'rxjs';
 import {takeUntil, tap} from 'rxjs/operators';
+import {CapsulesInterface} from '../../../shared/models/capsules.interface';
 
 @Component({
   selector: 'app-capsules',
@@ -9,7 +10,7 @@ import {takeUntil, tap} from 'rxjs/operators';
   styleUrls: ['./capsules.component.scss']
 })
 export class CapsulesComponent implements OnInit, OnDestroy {
-  capsules: any;
+  capsules: CapsulesInterface[];
   ngOnDestroy$ = new Subject();
   isHiddenClean = false;
 

@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DragonsService } from 'src/app/shared/services/dragons.service';
-import {Observable, Subject} from 'rxjs';
+import { Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
+import { DragonsInterface } from '../../../shared/models/dragons.interface';
 
 @Component({
   selector: 'app-dragons',
@@ -9,7 +10,7 @@ import { takeUntil, tap } from 'rxjs/operators';
   styleUrls: ['./dragons.component.scss']
 })
 export class DragonsComponent implements OnInit, OnDestroy {
-  dragons: Observable<any>;
+  dragons: DragonsInterface[];
   ngOnDestroy$ = new Subject();
   constructor(private dragonsService: DragonsService) { }
 

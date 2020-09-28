@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { InfoService } from 'src/app/shared/services/info.service';
 import { Subject } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
+import {AboutInterface} from '../../../shared/models/about.interface';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +10,7 @@ import { takeUntil, tap } from 'rxjs/operators';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  spaceXInfo;
+  spaceXInfo: AboutInterface;
   ngOnDestroy$ = new Subject();
   constructor(private infoService: InfoService) { }
 
