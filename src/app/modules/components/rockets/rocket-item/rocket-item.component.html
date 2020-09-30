@@ -16,9 +16,10 @@
     >
       favorite_border
     </span>
-    <span class="material-icons exist-favourite-icon"
+    <span class="material-icons pointer"
           *ngIf="isHiddenFavouriteIcon"
-          matTooltip="Rocket already favourite"
+          matTooltip="Remove from favourite"
+          (click)="removeFromFavourite(rocketInfo?.id)"
     >
       favorite
     </span>

@@ -1,6 +1,8 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
 import {RocketsInterface} from '../../../shared/models/rockets.interface';
+import {RocketsService} from '../../../shared/services/rockets.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-favourite-rockets-modal',
@@ -8,11 +10,18 @@ import {RocketsInterface} from '../../../shared/models/rockets.interface';
   styleUrls: ['./favourite-rockets-modal.component.scss']
 })
 export class FavouriteRocketsModalComponent implements OnInit {
-
-  constructor(@Inject(MAT_DIALOG_DATA) public data: RocketsInterface[]) { }
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: RocketsInterface[],
+    private rocketsService: RocketsService,
+    private router: Router,
+    public dialog: MatDialog,
+  ) { }
 
   ngOnInit(): void {
-    console.log(this.data);
   }
 
+  selectRocket(rocket) {
+    this.router.navigate(['/rockets', rocket.rocket_id])
+      .then(() => this.dialog.closeAll());
+  }
 }

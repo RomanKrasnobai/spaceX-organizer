@@ -49,6 +49,10 @@ export class RocketItemComponent implements OnInit, OnDestroy {
     }
   }
 
+  removeFromFavourite(id) {
+    this.saveFavouriteRocket.removeFromFavouriteStorage(id);
+  }
+
   ngOnDestroy() {
     this.ngOnDestroy$.next(true);
     this.ngOnDestroy$.complete();

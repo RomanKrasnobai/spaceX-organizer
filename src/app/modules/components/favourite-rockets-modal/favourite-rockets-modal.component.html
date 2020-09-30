@@ -1,6 +1,8 @@
 <ng-container *ngIf="data?.length; else empty">
-<div *ngFor="let rocket of data">
-  {{rocket?.rocket_name}}
-</div>
+  <a class="rocket-item pointer" *ngFor="let rocket of data; let i = index" (click)="selectRocket(rocket)">
+    <span>{{i + 1}}.</span>
+    <h4>{{rocket?.rocket_name}}</h4>
+    <img alt="rocket" src="{{rocket.flickr_images[0]}}" width="150">
+  </a>
 </ng-container>
 <ng-template #empty>No favourite rockets yet</ng-template>

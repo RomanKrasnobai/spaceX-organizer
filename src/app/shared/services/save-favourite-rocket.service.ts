@@ -39,6 +39,20 @@ export class SaveFavouriteRocketService {
     });
   }
 
+  removeFromFavouriteStorage(id) {
+    this.storageArr = JSON.parse(localStorage.getItem(this.favouriteStorageKey));
+
+    if (id) {
+      this.storageArr.forEach(el => {
+        if (el.id === id) {
+          // remove last item, not by id
+          this.storageArr.splice(id, 1);
+          localStorage.setItem(this.favouriteStorageKey, JSON.stringify(this.storageArr));
+        }
+      });
+    }
+  }
+
   addNextRocket(rocket) {
     this.rocket.next(rocket);
   }
