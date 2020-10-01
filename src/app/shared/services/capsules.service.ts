@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import {CapsulesInterface} from '../models/capsules.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -12,13 +13,13 @@ export class CapsulesService {
 
   getAllCapsules(serial?: string): Observable<any> {
     if (serial) {
-      return this.http.get(this.url, {params: { capsule_serial: serial }});
+      return this.http.get<CapsulesInterface[]>(this.url, {params: { capsule_serial: serial }});
     } else {
-      return this.http.get(this.url);
+      return this.http.get<CapsulesInterface[]>(this.url);
     }
   }
 
   getCapsulesByStatus(status: string): Observable<any> {
-    return this.http.get(this.url, { params: {status} });
+    return this.http.get<CapsulesInterface[]>(this.url, { params: {status} });
   }
 }

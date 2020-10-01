@@ -6,6 +6,8 @@
     <i>Back</i>
   </div>
 
+  <mat-spinner *ngIf="!rocketInfo"></mat-spinner>
+
   <div class="favourite-title">
     <ng-container *ngIf="!isHiddenFavouriteIcon; else favouriteTitle"><span>Add rocket to favourite</span></ng-container>
     <ng-template #favouriteTitle><span>Favourite rocket!</span></ng-template>

@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {LaunchesService} from '../../../shared/services/launches.service';
 import {Subject} from 'rxjs';
 import {takeUntil, tap} from 'rxjs/operators';
+import {LaunchesInterface} from '../../../shared/models/launches.interface';
 
 @Component({
   selector: 'app-launches',
@@ -9,7 +10,7 @@ import {takeUntil, tap} from 'rxjs/operators';
   styleUrls: ['./launches.component.scss']
 })
 export class LaunchesComponent implements OnInit, OnDestroy {
-  launches;
+  launches: LaunchesInterface[];
   ngOnDestroy$ = new Subject();
   constructor(private launchesService: LaunchesService) { }
 

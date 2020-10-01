@@ -1,3 +1,4 @@
+<mat-spinner *ngIf="!dragons?.length"></mat-spinner>
 <div class="wrapper" *ngFor="let dragon of dragons">
   <h3>{{dragon.name}}</h3>
   <section>{{dragon.description}}</section>
