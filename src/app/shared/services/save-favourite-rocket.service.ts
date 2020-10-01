@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject} from 'rxjs';
+import {RocketsInterface} from '../models/rockets.interface';
 
 @Injectable({
     providedIn: 'root'
@@ -8,7 +9,7 @@ export class SaveFavouriteRocketService {
   favouriteStorageKey = 'favourite';
   private rocket = new BehaviorSubject(JSON.parse(localStorage.getItem(this.favouriteStorageKey)));
   sharedRocket$ = this.rocket.asObservable();
-  storageArr = [];
+  storageArr: RocketsInterface[] = [];
   isExistRocketInStorage: boolean;
 
   constructor() { }
@@ -41,15 +42,12 @@ export class SaveFavouriteRocketService {
 
   removeFromFavouriteStorage(id) {
     this.storageArr = JSON.parse(localStorage.getItem(this.favouriteStorageKey));
-
     if (id) {
-      this.storageArr.forEach(el => {
-        if (el.id === id) {
-          // remove last item, not by id
-          this.storageArr.splice(id, 1);
-          localStorage.setItem(this.favouriteStorageKey, JSON.stringify(this.storageArr));
-        }
-      });
+      const index = this.storageArr.findIndex(elem => elem.id === id);
+      if (index !== -1) {
+        this.storageArr.splice(index, 1);
+        localStorage.setItem(this.favouriteStorageKey, JSON.stringify(this.storageArr));
+      }
     }
   }
 

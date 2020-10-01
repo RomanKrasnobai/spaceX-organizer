@@ -1,17 +1,9 @@
-:host {
-  width: 100%;
-}
-
 .wrapper {
-  content: '';
-  background-image: url("../../../../assets/images/spaceX_Store_Header.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  display: block;
-  color: #fff;
   margin-left: -20px;
-  padding-left: 5px;
+
+  .header-img {
+    width: 100%;
+  }
 
   h2 {
     margin-top: 0;
