@@ -19,7 +19,7 @@ export class RocketItemComponent implements OnInit, OnDestroy {
 
   constructor(
     private rocketsService: RocketsService,
-    private saveFavouriteRocket: SaveFavouriteRocketService,
+    private saveFavouriteRocketService: SaveFavouriteRocketService,
     private activatedRoute: ActivatedRoute,
     ) { }
 
@@ -43,14 +43,14 @@ export class RocketItemComponent implements OnInit, OnDestroy {
   }
 
   saveToFavourite() {
-    this.saveFavouriteRocket.saveToLocalStorage(this.rocketInfo);
-    if (!this.saveFavouriteRocket.isExistRocketInStorage) {
+    this.saveFavouriteRocketService.saveToLocalStorage(this.rocketInfo);
+    if (!this.saveFavouriteRocketService.isExistRocketInStorage) {
       this.isHiddenFavouriteIcon = true;
     }
   }
 
   removeFromFavourite(id) {
-    this.saveFavouriteRocket.removeFromFavouriteStorage(id);
+    this.saveFavouriteRocketService.removeFromFavouriteStorage(id);
     this.isHiddenFavouriteIcon = false;
   }
 

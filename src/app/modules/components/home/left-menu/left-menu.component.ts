@@ -3,6 +3,7 @@ import {SaveFavouriteRocketService} from '../../../../shared/services/save-favou
 import {NavigationInterface} from '../../../../shared/models/navigation.interface';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {FavouriteRocketsModalComponent} from '../../favourite-rockets-modal/favourite-rockets-modal.component';
+import {RocketsInterface} from '../../../../shared/models/rockets.interface';
 
 @Component({
   selector: 'app-left-menu',
@@ -10,12 +11,13 @@ import {FavouriteRocketsModalComponent} from '../../favourite-rockets-modal/favo
   styleUrls: ['./left-menu.component.scss']
 })
 export class LeftMenuComponent implements OnInit {
-  storageValue: object | string;
+  storageValue: RocketsInterface[];
   navigation: NavigationInterface[] = [
     { title: 'Home', link: '/home' },
     { title: 'Rockets', link: '/rockets' },
     { title: 'Capsules', link: '/capsules' },
     { title: 'Dragons', link: '/dragons' },
+    { title: 'Launches', link: '/launches' },
   ];
 
   constructor(
@@ -25,7 +27,7 @@ export class LeftMenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.saveFavouriteRocketService.sharedRocket$
-      .subscribe(value => this.storageValue = value || 'No rockets');
+      .subscribe(value => this.storageValue = value);
   }
 
   openFavouriteModal() {

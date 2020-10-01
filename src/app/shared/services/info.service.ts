@@ -5,10 +5,10 @@ import { Observable } from 'rxjs';
 @Injectable({
     providedIn: 'root'
   })
-  export class InfoService {
-    constructor(private http: HttpClient) { }
+export class InfoService {
+  constructor(private http: HttpClient) { }
 
-    getInfo(): Observable<any> {
-        return this.http.get(`https://api.spacexdata.com/v3/info`);
-    }
+  getInfo(): Observable<any> {
+    return this.http.get(`https://api.spacexdata.com/v3/info`);
   }
+}

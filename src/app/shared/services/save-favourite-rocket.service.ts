@@ -47,6 +47,7 @@ export class SaveFavouriteRocketService {
       if (index !== -1) {
         this.storageArr.splice(index, 1);
         localStorage.setItem(this.favouriteStorageKey, JSON.stringify(this.storageArr));
+        this.addNextRocket(this.storageArr);
       }
     }
   }

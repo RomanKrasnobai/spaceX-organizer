@@ -1,0 +1,5 @@
+<p>launches works!</p>
+<mat-spinner *ngIf="!launches?.length"></mat-spinner>
+<div *ngFor="let launch of launches">
+  {{launch.flight_number}}
+</div>
