@@ -1,10 +1,10 @@
 <div class="block-wrapper">
-  <div class="back-arrow pointer" [routerLink]="['/rockets']">
+  <a class="back-arrow pointer" [routerLink]="['/rockets']">
     <span class="material-icons">
       arrow_back
     </span>
     <i>Back</i>
-  </div>
+  </a>
 
   <mat-spinner *ngIf="!rocketInfo"></mat-spinner>
 
