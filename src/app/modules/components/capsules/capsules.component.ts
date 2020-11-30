@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {CapsulesService} from '../../../shared/services/capsules.service';
-import {Subject} from 'rxjs';
+import {Observable, Observer, Subject} from 'rxjs';
 import {takeUntil, tap} from 'rxjs/operators';
 import {CapsulesInterface} from '../../../shared/models/capsules.interface';
 
@@ -12,7 +12,7 @@ import {CapsulesInterface} from '../../../shared/models/capsules.interface';
 export class CapsulesComponent implements OnInit, OnDestroy {
   capsules: CapsulesInterface[];
   capsulesStatuses = ['retired', 'unknown', 'active', 'destroyed'];
-  ngOnDestroy$ = new Subject();
+  ngOnDestroy$: Subject<null> = new Subject();
   isHiddenCleanSerial = false;
   isHiddenCleanStatus = false;
 
@@ -25,15 +25,13 @@ export class CapsulesComponent implements OnInit, OnDestroy {
   getCapsules() {
     this.capsulesService.getAllCapsules().pipe(
       takeUntil(this.ngOnDestroy$),
-      tap(req => this.capsules = req)
-    ).subscribe();
+    ).subscribe(req => this.capsules = req);
   }
 
   sortBySerial(event) {
     this.capsulesService.getAllCapsules(event.value).pipe(
       takeUntil(this.ngOnDestroy$),
-      tap(req => this.capsules = req)
-    ).subscribe();
+    ).subscribe(req => this.capsules = req);
     this.isHiddenCleanSerial = true;
   }
 
@@ -45,8 +43,7 @@ export class CapsulesComponent implements OnInit, OnDestroy {
   sortByStatus(event) {
     this.capsulesService.getCapsulesByStatus(event.value).pipe(
       takeUntil(this.ngOnDestroy$),
-      tap(req => this.capsules = req)
-    ).subscribe();
+    ).subscribe(req => this.capsules = req);
     this.isHiddenCleanStatus = true;
   }
 

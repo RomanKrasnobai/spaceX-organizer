@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { InfoService } from 'src/app/shared/services/info.service';
-import { Subject } from 'rxjs';
-import { takeUntil, tap } from 'rxjs/operators';
+import {Subject} from 'rxjs';
+import {takeUntil, tap} from 'rxjs/operators';
 import {AboutInterface} from '../../../shared/models/about.interface';
 
 @Component({

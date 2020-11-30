@@ -1,8 +1,8 @@
-<ng-container *ngFor="let route of navigation">
+<div *ngFor="let route of navigation">
   <a class="nav-item" routerLink="{{ route.link }}" routerLinkActive="active-route">
     {{route.title}}
   </a>
-</ng-container>
+</div>
 
 <div class="favourite-rockets">
   <button mat-button (click)="openFavouriteModal()">
