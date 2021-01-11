@@ -1,16 +1,18 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {SaveFavouriteRocketService} from '../../../../shared/services/save-favourite-rocket.service';
 import {NavigationInterface} from '../../../../shared/models/navigation.interface';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {FavouriteRocketsModalComponent} from '../../favourite-rockets-modal/favourite-rockets-modal.component';
 import {RocketsInterface} from '../../../../shared/models/rockets.interface';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 
 @Component({
   selector: 'app-left-menu',
   templateUrl: './left-menu.component.html',
   styleUrls: ['./left-menu.component.scss']
 })
-export class LeftMenuComponent implements OnInit {
+export class LeftMenuComponent implements OnInit, OnDestroy {
   storageValue: RocketsInterface[];
   navigation: NavigationInterface[] = [
     { title: 'Home', link: '/home' },
@@ -19,6 +21,7 @@ export class LeftMenuComponent implements OnInit {
     { title: 'Dragons', link: '/dragons' },
     { title: 'Launches', link: '/launches' },
   ];
+  private ngOnDestroy$: Subject<null> = new Subject<null>();
 
   constructor(
     private saveFavouriteRocketService: SaveFavouriteRocketService,
@@ -26,8 +29,13 @@ export class LeftMenuComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.saveFavouriteRocketService.sharedRocket$
+    this.saveFavouriteRocketService.sharedRocket$.pipe(
+      takeUntil(this.ngOnDestroy$))
       .subscribe(value => this.storageValue = value);
+  }
+  ngOnDestroy() {
+    this.ngOnDestroy$.next(null);
+    this.ngOnDestroy$.complete();
   }
 
   openFavouriteModal() {

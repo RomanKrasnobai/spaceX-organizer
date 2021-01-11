@@ -1,4 +1,4 @@
-export interface AboutInterface {
+export interface InfoInterface {
   name: string;
   ceo: string;
   coo: string;

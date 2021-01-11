@@ -1,5 +1,6 @@
-<div *ngFor="let route of navigation">
-  <a class="nav-item" routerLink="{{ route.link }}" routerLinkActive="active-route">
+<div *ngFor="let route of navigation"
+      class="nav-item">
+  <a class="nav-item-link" routerLink="{{ route.link }}" routerLinkActive="active-route">
     {{route.title}}
   </a>
 </div>

@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { InfoService } from 'src/app/shared/services/info.service';
 import {Subject} from 'rxjs';
-import {takeUntil, tap} from 'rxjs/operators';
-import {AboutInterface} from '../../../shared/models/about.interface';
+import {takeUntil} from 'rxjs/operators';
+import {InfoInterface} from '../../../shared/models/about.interface';
 
 @Component({
   selector: 'app-home',
@@ -10,19 +10,19 @@ import {AboutInterface} from '../../../shared/models/about.interface';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  spaceXInfo: AboutInterface;
-  ngOnDestroy$ = new Subject();
+  spaceXInfo: InfoInterface;
+  private ngOnDestroy$: Subject<null> = new Subject<null>();
+
   constructor(private infoService: InfoService) { }
 
   ngOnInit(): void {
     this.infoService.getInfo().pipe(
       takeUntil(this.ngOnDestroy$),
-      tap(data => this.spaceXInfo = data)
-    ).subscribe();
+    ).subscribe(data => this.spaceXInfo = data);
   }
 
   ngOnDestroy() {
-    this.ngOnDestroy$.next(true);
+    this.ngOnDestroy$.next(null);
     this.ngOnDestroy$.complete();
   }
 
