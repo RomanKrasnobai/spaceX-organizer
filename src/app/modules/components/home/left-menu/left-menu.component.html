@@ -1,16 +1,21 @@
 <div *ngFor="let route of navigation"
       class="nav-item">
-  <a class="nav-item-link" routerLink="{{ route.link }}" routerLinkActive="active-route">
+  <a class="nav-item-link"
+     routerLink="{{ route.link }}"
+     routerLinkActive="active-route"
+  >
     {{route.title}}
   </a>
 </div>
 
 <div class="favourite-rockets">
-  <button mat-button (click)="openFavouriteModal()">
+  <button mat-button
+          (click)="openFavouriteModal()"
+  >
     <span class="material-icons"
     >
       favorite
     </span>
-    {{storageValue?.length ? 'Favourite rockets' : 'No favourite rockets yet'}}
+    {{isFavourite()}}
   </button>
 </div>

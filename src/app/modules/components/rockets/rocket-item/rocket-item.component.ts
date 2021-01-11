@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RocketsService } from 'src/app/shared/services/rockets.service';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
-import { takeUntil, tap } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { SaveFavouriteRocketService } from 'src/app/shared/services/save-favourite-rocket.service';
 import { RocketInterface } from '../../../../shared/models/rocket.interface';
 
@@ -14,8 +14,8 @@ import { RocketInterface } from '../../../../shared/models/rocket.interface';
 export class RocketItemComponent implements OnInit, OnDestroy {
   rocketInfo: RocketInterface | any;
   isHiddenFavouriteIcon = false;
-  ngOnDestroy$ = new Subject();
   storage = JSON.parse(localStorage.getItem('favourite'));
+  private ngOnDestroy$: Subject<null> = new Subject<null>();
 
   constructor(
     private rocketsService: RocketsService,
@@ -27,35 +27,34 @@ export class RocketItemComponent implements OnInit, OnDestroy {
     this.activatedRoute.params.subscribe(param => {
       this.rocketsService.getRocketById(param.id).pipe(
         takeUntil(this.ngOnDestroy$),
-        tap(data => {
-          this.rocketInfo = data;
-          for (let i = 0; i < this.storage?.length; i++) {
-             if (this.storage[i].id === this.rocketInfo.id) {
-               this.isHiddenFavouriteIcon = true;
-               break;
-             } else {
-               this.isHiddenFavouriteIcon = false;
-             }
+      ).subscribe(data => {
+        this.rocketInfo = data;
+        for (let i = 0; i < this.storage?.length; i++) {
+          if (this.storage[i].id === this.rocketInfo.id) {
+            this.isHiddenFavouriteIcon = true;
+            break;
+          } else {
+            this.isHiddenFavouriteIcon = false;
           }
-        })
-      ).subscribe();
+        }
+      });
     });
   }
 
-  saveToFavourite() {
+  ngOnDestroy(): void {
+    this.ngOnDestroy$.next(null);
+    this.ngOnDestroy$.complete();
+  }
+
+  saveToFavourite(): void {
     this.saveFavouriteRocketService.saveToLocalStorage(this.rocketInfo);
     if (!this.saveFavouriteRocketService.isExistRocketInStorage) {
       this.isHiddenFavouriteIcon = true;
     }
   }
 
-  removeFromFavourite(id) {
+  removeFromFavourite(id): void {
     this.saveFavouriteRocketService.removeFromFavouriteStorage(id);
     this.isHiddenFavouriteIcon = false;
-  }
-
-  ngOnDestroy() {
-    this.ngOnDestroy$.next(true);
-    this.ngOnDestroy$.complete();
   }
 }

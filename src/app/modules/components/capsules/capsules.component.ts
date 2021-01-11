@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {CapsulesService} from '../../../shared/services/capsules.service';
-import {Observable, Observer, Subject} from 'rxjs';
-import {takeUntil, tap} from 'rxjs/operators';
+import { Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 import {CapsulesInterface} from '../../../shared/models/capsules.interface';
 
 @Component({
@@ -12,48 +12,48 @@ import {CapsulesInterface} from '../../../shared/models/capsules.interface';
 export class CapsulesComponent implements OnInit, OnDestroy {
   capsules: CapsulesInterface[];
   capsulesStatuses = ['retired', 'unknown', 'active', 'destroyed'];
-  ngOnDestroy$: Subject<null> = new Subject();
+  private ngOnDestroy$: Subject<null> = new Subject<null>();
   isHiddenCleanSerial = false;
   isHiddenCleanStatus = false;
 
   constructor(private capsulesService: CapsulesService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.getCapsules();
   }
 
-  getCapsules() {
+  ngOnDestroy(): void {
+    this.ngOnDestroy$.next(null);
+    this.ngOnDestroy$.complete();
+  }
+
+  getCapsules(): void {
     this.capsulesService.getAllCapsules().pipe(
       takeUntil(this.ngOnDestroy$),
     ).subscribe(req => this.capsules = req);
   }
 
-  sortBySerial(event) {
+  sortBySerial(event): void {
     this.capsulesService.getAllCapsules(event.value).pipe(
       takeUntil(this.ngOnDestroy$),
     ).subscribe(req => this.capsules = req);
     this.isHiddenCleanSerial = true;
   }
 
-  cleanSortBySerial() {
+  cleanSortBySerial(): void {
     this.getCapsules();
     this.isHiddenCleanSerial = false;
   }
 
-  sortByStatus(event) {
+  sortByStatus(event): void {
     this.capsulesService.getCapsulesByStatus(event.value).pipe(
       takeUntil(this.ngOnDestroy$),
     ).subscribe(req => this.capsules = req);
     this.isHiddenCleanStatus = true;
   }
 
-  cleanSortByStatus() {
+  cleanSortByStatus(): void {
     this.getCapsules();
     this.isHiddenCleanStatus = false;
-  }
-
-  ngOnDestroy() {
-    this.ngOnDestroy$.next();
-    this.ngOnDestroy$.complete();
   }
 }

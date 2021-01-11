@@ -11,7 +11,8 @@ import { DragonsInterface } from '../../../shared/models/dragons.interface';
 })
 export class DragonsComponent implements OnInit, OnDestroy {
   dragons: DragonsInterface[];
-  ngOnDestroy$ = new Subject();
+  private ngOnDestroy$: Subject<null> = new Subject<null>();
+
   constructor(private dragonsService: DragonsService) { }
 
   ngOnInit(): void {
@@ -19,13 +20,12 @@ export class DragonsComponent implements OnInit, OnDestroy {
       takeUntil(this.ngOnDestroy$),
       tap(req => {
         this.dragons = req;
-        // console.log(this.dragons);
       })
     ).subscribe();
   }
 
-  ngOnDestroy() {
-    this.ngOnDestroy$.next(true);
+  ngOnDestroy(): void {
+    this.ngOnDestroy$.next(null);
     this.ngOnDestroy$.complete();
   }
 }

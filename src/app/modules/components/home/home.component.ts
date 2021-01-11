@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     ).subscribe(data => this.spaceXInfo = data);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.ngOnDestroy$.next(null);
     this.ngOnDestroy$.complete();
   }

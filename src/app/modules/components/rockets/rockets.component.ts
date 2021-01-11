@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RocketsService } from 'src/app/shared/services/rockets.service';
 import { Subject } from 'rxjs';
-import { takeUntil, tap } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { RocketsInterface } from '../../../shared/models/rockets.interface';
 
@@ -13,8 +13,8 @@ import { RocketsInterface } from '../../../shared/models/rockets.interface';
 })
 export class RocketsComponent implements OnInit, OnDestroy  {
   rockets: RocketsInterface[];
-  ngOnDestroy$ = new Subject();
   setDate = new FormControl();
+  private ngOnDestroy$: Subject<null> = new Subject<null>();
 
   constructor(
     private rocketsService: RocketsService,
@@ -23,16 +23,15 @@ export class RocketsComponent implements OnInit, OnDestroy  {
   ngOnInit(): void {
     this.rocketsService.getAllRockets().pipe(
       takeUntil(this.ngOnDestroy$),
-      tap(req => this.rockets = req)
-    ).subscribe();
+    ).subscribe(req => this.rockets = req);
   }
 
-  showAllData() {
-    this.setDate.setValue(null);
-  }
-
-  ngOnDestroy() {
-    this.ngOnDestroy$.next(true);
+  ngOnDestroy(): void {
+    this.ngOnDestroy$.next(null);
     this.ngOnDestroy$.complete();
+  }
+
+  showAllData(): void {
+    this.setDate.setValue(null);
   }
 }

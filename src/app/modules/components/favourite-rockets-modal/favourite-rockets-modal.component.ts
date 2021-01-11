@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
 import {RocketsInterface} from '../../../shared/models/rockets.interface';
 import {RocketsService} from '../../../shared/services/rockets.service';
@@ -9,7 +9,7 @@ import {Router} from '@angular/router';
   templateUrl: './favourite-rockets-modal.component.html',
   styleUrls: ['./favourite-rockets-modal.component.scss']
 })
-export class FavouriteRocketsModalComponent implements OnInit {
+export class FavouriteRocketsModalComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: RocketsInterface[],
     private rocketsService: RocketsService,
@@ -17,10 +17,7 @@ export class FavouriteRocketsModalComponent implements OnInit {
     public dialog: MatDialog,
   ) { }
 
-  ngOnInit(): void {
-  }
-
-  selectRocket(rocket) {
+  selectRocket(rocket): void {
     this.router.navigate(['/rockets', rocket.rocket_id])
       .then(() => this.dialog.closeAll());
   }
