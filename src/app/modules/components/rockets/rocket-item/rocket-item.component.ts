@@ -1,16 +1,17 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { RocketsService } from 'src/app/shared/services/rockets.service';
-import { ActivatedRoute } from '@angular/router';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { SaveFavouriteRocketService } from 'src/app/shared/services/save-favourite-rocket.service';
-import { RocketInterface } from '../../../../shared/models/rocket.interface';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
+import {RocketsService} from 'src/app/shared/services/rockets.service';
+import {ActivatedRoute} from '@angular/router';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
+import {SaveFavouriteRocketService} from 'src/app/shared/services/save-favourite-rocket.service';
+import {RocketInterface} from '../../../../shared/models/rocket.interface';
 import {AlertMessageService} from '../../../../shared/services/alert-message.service';
 
 @Component({
   selector: 'app-rocket-item',
   templateUrl: './rocket-item.component.html',
-  styleUrls: ['./rocket-item.component.scss']
+  styleUrls: ['./rocket-item.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RocketItemComponent implements OnInit, OnDestroy {
   rocketInfo: RocketInterface | any;
@@ -24,7 +25,8 @@ export class RocketItemComponent implements OnInit, OnDestroy {
     private saveFavouriteRocketService: SaveFavouriteRocketService,
     private activatedRoute: ActivatedRoute,
     private alertMessageService: AlertMessageService,
-    ) { }
+    private cdr: ChangeDetectorRef
+  ) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(param => {
@@ -32,6 +34,7 @@ export class RocketItemComponent implements OnInit, OnDestroy {
         takeUntil(this.ngOnDestroy$),
       ).subscribe(data => {
         this.rocketInfo = data;
+        this.cdr.detectChanges();
         for (let i = 0; i < this.storage?.length; i++) {
           if (this.storage[i].id === this.rocketInfo.id) {
             this.isHiddenFavouriteIcon = true;

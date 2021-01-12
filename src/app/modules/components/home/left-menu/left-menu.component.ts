@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {SaveFavouriteRocketService} from '../../../../shared/services/save-favourite-rocket.service';
 import {NavigationInterface} from '../../../../shared/models/navigation.interface';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
@@ -10,7 +10,8 @@ import {takeUntil} from 'rxjs/operators';
 @Component({
   selector: 'app-left-menu',
   templateUrl: './left-menu.component.html',
-  styleUrls: ['./left-menu.component.scss']
+  styleUrls: ['./left-menu.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LeftMenuComponent implements OnInit, OnDestroy {
   storageValue: RocketsInterface[];

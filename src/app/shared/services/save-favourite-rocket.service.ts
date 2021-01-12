@@ -7,7 +7,7 @@ import {RocketsInterface} from '../models/rockets.interface';
 })
 export class SaveFavouriteRocketService {
   favouriteStorageKey = 'favourite';
-  private rocket = new BehaviorSubject(JSON.parse(localStorage.getItem(this.favouriteStorageKey)));
+  private rocket: BehaviorSubject<RocketsInterface[]> = new BehaviorSubject(JSON.parse(localStorage.getItem(this.favouriteStorageKey)));
   sharedRocket$ = this.rocket.asObservable();
   storageArr: RocketsInterface[] = [];
   isExistRocketInStorage: boolean;
