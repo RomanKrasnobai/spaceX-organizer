@@ -5,7 +5,7 @@ import { RocketsComponent } from './modules/components/rockets/rockets.component
 import { DragonsComponent } from './modules/components/dragons/dragons.component';
 import { RocketItemComponent } from './modules/components/rockets/rocket-item/rocket-item.component';
 import {CapsulesComponent} from './modules/components/capsules/capsules.component';
-import {LaunchesComponent} from "./modules/components/launches/launches.component";
+import {LaunchesComponent} from './modules/components/launches/launches.component';
 
 
 const routes: Routes = [

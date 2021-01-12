@@ -1,7 +1,7 @@
 import {Component, Inject} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialog} from '@angular/material/dialog';
-import {RocketsInterface} from '../../../shared/models/rockets.interface';
-import {RocketsService} from '../../../shared/services/rockets.service';
+import {RocketsInterface} from '../../../../shared/models/rockets.interface';
+import {RocketsService} from '../../../../shared/services/rockets.service';
 import {Router} from '@angular/router';
 
 @Component({

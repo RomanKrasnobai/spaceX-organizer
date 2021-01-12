@@ -2,7 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {SaveFavouriteRocketService} from '../../../../shared/services/save-favourite-rocket.service';
 import {NavigationInterface} from '../../../../shared/models/navigation.interface';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
-import {FavouriteRocketsModalComponent} from '../../favourite-rockets-modal/favourite-rockets-modal.component';
+import {FavouriteRocketsModalComponent} from '../../modals/favourite-rockets-modal/favourite-rockets-modal.component';
 import {RocketsInterface} from '../../../../shared/models/rockets.interface';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';

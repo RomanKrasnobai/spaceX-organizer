@@ -5,6 +5,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { SaveFavouriteRocketService } from 'src/app/shared/services/save-favourite-rocket.service';
 import { RocketInterface } from '../../../../shared/models/rocket.interface';
+import {AlertMessageService} from '../../../../shared/services/alert-message.service';
 
 @Component({
   selector: 'app-rocket-item',
@@ -16,11 +17,13 @@ export class RocketItemComponent implements OnInit, OnDestroy {
   isHiddenFavouriteIcon = false;
   storage = JSON.parse(localStorage.getItem('favourite'));
   private ngOnDestroy$: Subject<null> = new Subject<null>();
+  alertMessage: string;
 
   constructor(
     private rocketsService: RocketsService,
     private saveFavouriteRocketService: SaveFavouriteRocketService,
     private activatedRoute: ActivatedRoute,
+    private alertMessageService: AlertMessageService,
     ) { }
 
   ngOnInit(): void {
@@ -39,6 +42,10 @@ export class RocketItemComponent implements OnInit, OnDestroy {
         }
       });
     });
+
+    this.alertMessageService.sharedAlertMessage
+      .pipe(takeUntil(this.ngOnDestroy$))
+      .subscribe(message => this.alertMessage = message);
   }
 
   ngOnDestroy(): void {
@@ -51,10 +58,12 @@ export class RocketItemComponent implements OnInit, OnDestroy {
     if (!this.saveFavouriteRocketService.isExistRocketInStorage) {
       this.isHiddenFavouriteIcon = true;
     }
+    this.alertMessageService.nextMessage(this.alertMessageService.messages.safe);
   }
 
   removeFromFavourite(id): void {
     this.saveFavouriteRocketService.removeFromFavouriteStorage(id);
     this.isHiddenFavouriteIcon = false;
+    this.alertMessageService.nextMessage(this.alertMessageService.messages.remove);
   }
 }
