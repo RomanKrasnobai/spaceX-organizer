@@ -1,8 +1,8 @@
-import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {SaveFavouriteRocketService} from '../../../../shared/services/save-favourite-rocket.service';
 import {NavigationInterface} from '../../../../shared/models/navigation.interface';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
-import {FavouriteRocketsModalComponent} from '../../modals/favourite-rockets-modal/favourite-rockets-modal.component';
+import {FavouriteRocketsModalComponent} from '../../modal-windows/favourite-rockets-modal/favourite-rockets-modal.component';
 import {RocketsInterface} from '../../../../shared/models/rockets.interface';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
@@ -27,16 +27,24 @@ export class LeftMenuComponent implements OnInit, OnDestroy {
   constructor(
     private saveFavouriteRocketService: SaveFavouriteRocketService,
     public dialog: MatDialog,
+    private cdr: ChangeDetectorRef,
   ) { }
 
   ngOnInit(): void {
     this.saveFavouriteRocketService.sharedRocket$.pipe(
       takeUntil(this.ngOnDestroy$))
-      .subscribe(value => this.storageValue = value);
+      .subscribe(value => {
+        this.storageValue = value;
+        this.cdr.detectChanges();
+      });
   }
   ngOnDestroy() {
     this.ngOnDestroy$.next(null);
     this.ngOnDestroy$.complete();
+  }
+
+  trackByFn(index, item): string {
+    return item.title;
   }
 
   openFavouriteModal(): void {

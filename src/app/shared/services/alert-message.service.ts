@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import {BehaviorSubject, Observable} from 'rxjs';
-import {AlertMessageInterface} from '../models/alert-message.interface';
+import { Observable, Subject } from 'rxjs';
+import { AlertMessageInterface } from '../models/alert-message.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +11,8 @@ export class AlertMessageService {
     remove: 'Remove from favourite'
   };
 
-  private alertMessage: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  private alertMessage: Subject<string> = new Subject<string>();
   sharedAlertMessage: Observable<string> = this.alertMessage.asObservable();
-
-  constructor() { }
 
   nextMessage(message) {
     this.alertMessage.next(message);

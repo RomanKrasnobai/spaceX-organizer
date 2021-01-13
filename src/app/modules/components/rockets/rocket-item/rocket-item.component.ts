@@ -38,9 +38,11 @@ export class RocketItemComponent implements OnInit, OnDestroy {
         for (let i = 0; i < this.storage?.length; i++) {
           if (this.storage[i].id === this.rocketInfo.id) {
             this.isHiddenFavouriteIcon = true;
+            this.cdr.detectChanges();
             break;
           } else {
             this.isHiddenFavouriteIcon = false;
+            this.cdr.detectChanges();
           }
         }
       });
@@ -54,6 +56,10 @@ export class RocketItemComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.ngOnDestroy$.next(null);
     this.ngOnDestroy$.complete();
+  }
+
+  trackByFn(index, item): number {
+    return item.id;
   }
 
   saveToFavourite(): void {

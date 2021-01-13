@@ -33,6 +33,14 @@ export class CapsulesComponent implements OnInit, OnDestroy {
     ).subscribe(req => this.capsules = req);
   }
 
+  trackByFn(index, item): string {
+    return item.capsule_id;
+  }
+
+  trackByFnStatus(index, item): string {
+    return item;
+  }
+
   sortBySerial(event): void {
     this.capsulesService.getAllCapsules(event.value).pipe(
       takeUntil(this.ngOnDestroy$),

@@ -1,4 +1,4 @@
-<div *ngFor="let route of navigation"
+<div *ngFor="let route of navigation; trackBy: trackByFn"
       class="nav-item">
   <a class="nav-item-link"
      routerLink="{{ route.link }}"

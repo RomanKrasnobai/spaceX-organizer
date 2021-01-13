@@ -38,4 +38,8 @@ export class RocketsComponent implements OnInit, OnDestroy  {
   showAllData(): void {
     this.setDate.setValue(null);
   }
+
+  trackByFn(index, item): number {
+    return item.id;
+  }
 }

@@ -30,7 +30,7 @@
   <h4>{{rocketInfo?.rocket_id | uppercase}}</h4>
   <p>{{rocketInfo?.description}}</p>
 
-  <ng-container *ngFor="let img of rocketInfo?.flickr_images">
+  <ng-container *ngFor="let img of rocketInfo?.flickr_images; trackBy: trackByFn">
     <img class="img" alt="img" src="{{img}}" width="500">
   </ng-container>
 </div>

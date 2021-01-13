@@ -1,11 +1,11 @@
 <mat-spinner *ngIf="!dragons?.length"></mat-spinner>
-<div class="wrapper" *ngFor="let dragon of dragons">
+<div class="wrapper" *ngFor="let dragon of dragons; trackBy: trackByFn">
   <h3>{{dragon.name}}</h3>
   <section>{{dragon.description}}</section>
   <p>
     <a class="wikipedia-title" target="_blank" href="{{dragon.wikipedia}}">On Wikipedia</a>
   </p>
-  <ng-container *ngFor="let img of dragon.flickr_images">
+  <ng-container *ngFor="let img of dragon.flickr_images; trackBy: trackByFn">
     <img class="img" alt="dragon" src="{{img}}" width="500">
   </ng-container>
 </div>

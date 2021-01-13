@@ -33,4 +33,8 @@ export class LaunchesComponent implements OnInit, OnDestroy {
     this.ngOnDestroy$.next(null);
     this.ngOnDestroy$.complete();
   }
+
+  trackByFn(index, item): number {
+    return item.id;
+  }
 }

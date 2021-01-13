@@ -3,7 +3,7 @@
   <mat-label>Sort by serial</mat-label>
   <mat-select (selectionChange)="sortBySerial($event)">
     <mat-option
-      *ngFor="let cap of capsules"
+      *ngFor="let cap of capsules; trackBy: trackByFn"
       [value]="cap?.capsule_serial"
     >
       {{cap?.capsule_serial}}
@@ -23,7 +23,7 @@
   <mat-label>Sort by status</mat-label>
   <mat-select (selectionChange)="sortByStatus($event)">
     <mat-option
-      *ngFor="let status of capsulesStatuses"
+      *ngFor="let status of capsulesStatuses; trackBy: trackByFnStatus"
       [value]="status"
     >
       {{status}}
@@ -46,7 +46,7 @@
     <th>Status</th>
     <th>Launch</th>
   </tr>
-  <tr *ngFor="let capsule of capsules">
+  <tr *ngFor="let capsule of capsules; trackBy: trackByFn">
     <td>{{capsule?.capsule_id}}</td>
     <td>{{capsule?.capsule_serial}}</td>
     <td>{{capsule?.status}}</td>
