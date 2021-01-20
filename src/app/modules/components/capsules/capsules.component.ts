@@ -1,25 +1,32 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {CapsulesService} from '../../../shared/services/capsules.service';
-import { Subject} from 'rxjs';
+import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import {CapsulesInterface} from '../../../shared/models/capsules.interface';
 
 @Component({
   selector: 'app-capsules',
   templateUrl: './capsules.component.html',
-  styleUrls: ['./capsules.component.scss']
+  styleUrls: ['./capsules.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CapsulesComponent implements OnInit, OnDestroy {
   capsules: CapsulesInterface[];
-  capsulesStatuses = ['retired', 'unknown', 'active', 'destroyed'];
+  capsulesSerialNum;
   private ngOnDestroy$: Subject<null> = new Subject<null>();
-  isHiddenCleanSerial = false;
-  isHiddenCleanStatus = false;
 
-  constructor(private capsulesService: CapsulesService) { }
+  constructor(
+    private capsulesService: CapsulesService,
+    private cdr: ChangeDetectorRef
+  ) { }
 
   ngOnInit(): void {
-    this.getCapsules();
+    this.capsulesService.getAllCapsules().pipe(
+      takeUntil(this.ngOnDestroy$),
+    ).subscribe(req => {
+      this.capsules = req;
+      this.cdr.detectChanges();
+    });
   }
 
   ngOnDestroy(): void {
@@ -27,41 +34,11 @@ export class CapsulesComponent implements OnInit, OnDestroy {
     this.ngOnDestroy$.complete();
   }
 
-  getCapsules(): void {
-    this.capsulesService.getAllCapsules().pipe(
-      takeUntil(this.ngOnDestroy$),
-    ).subscribe(req => this.capsules = req);
-  }
-
   trackByFn(index, item): string {
     return item.capsule_id;
   }
 
-  trackByFnStatus(index, item): string {
-    return item;
-  }
-
-  sortBySerial(event): void {
-    this.capsulesService.getAllCapsules(event.value).pipe(
-      takeUntil(this.ngOnDestroy$),
-    ).subscribe(req => this.capsules = req);
-    this.isHiddenCleanSerial = true;
-  }
-
-  cleanSortBySerial(): void {
-    this.getCapsules();
-    this.isHiddenCleanSerial = false;
-  }
-
-  sortByStatus(event): void {
-    this.capsulesService.getCapsulesByStatus(event.value).pipe(
-      takeUntil(this.ngOnDestroy$),
-    ).subscribe(req => this.capsules = req);
-    this.isHiddenCleanStatus = true;
-  }
-
-  cleanSortByStatus(): void {
-    this.getCapsules();
-    this.isHiddenCleanStatus = false;
+  getFilterBySerial(event) {
+    this.capsules = event;
   }
 }

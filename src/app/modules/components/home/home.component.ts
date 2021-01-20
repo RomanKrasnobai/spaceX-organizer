@@ -1,7 +1,6 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {InfoService} from 'src/app/shared/services/info.service';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {Observable, Subject} from 'rxjs';
 import {InfoInterface} from '../../../shared/models/about.interface';
 
 @Component({
@@ -10,27 +9,14 @@ import {InfoInterface} from '../../../shared/models/about.interface';
   styleUrls: ['./home.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HomeComponent implements OnInit, OnDestroy {
-  spaceXInfo: InfoInterface;
-  private ngOnDestroy$: Subject<null> = new Subject<null>();
+export class HomeComponent implements OnInit {
+  spaceXInfo: Observable<InfoInterface>;
 
   constructor(
     private infoService: InfoService,
-    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
-    this.infoService.getInfo().pipe(
-      takeUntil(this.ngOnDestroy$),
-    ).subscribe(data => {
-      this.spaceXInfo = data;
-      this.cdr.detectChanges();
-    });
+    this.spaceXInfo = this.infoService.getInfo();
   }
-
-  ngOnDestroy(): void {
-    this.ngOnDestroy$.next(null);
-    this.ngOnDestroy$.complete();
-  }
-
 }

@@ -1,5 +1,5 @@
-<mat-spinner *ngIf="!dragons?.length"></mat-spinner>
-<div class="wrapper" *ngFor="let dragon of dragons; trackBy: trackByFn">
+<mat-spinner *ngIf="!(dragons | async)?.length"></mat-spinner>
+<div class="wrapper" *ngFor="let dragon of dragons | async; trackBy: trackByFn">
   <h3>{{dragon.name}}</h3>
   <section>{{dragon.description}}</section>
   <p>

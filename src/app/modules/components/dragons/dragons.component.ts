@@ -1,7 +1,6 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {DragonsService} from 'src/app/shared/services/dragons.service';
-import {Subject} from 'rxjs';
-import {takeUntil, tap} from 'rxjs/operators';
+import {Observable} from 'rxjs';
 import {DragonsInterface} from '../../../shared/models/dragons.interface';
 
 @Component({
@@ -10,28 +9,14 @@ import {DragonsInterface} from '../../../shared/models/dragons.interface';
   styleUrls: ['./dragons.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DragonsComponent implements OnInit, OnDestroy {
-  dragons: DragonsInterface[];
-  private ngOnDestroy$: Subject<null> = new Subject<null>();
-
+export class DragonsComponent implements OnInit {
+  dragons: Observable<DragonsInterface[]>;
   constructor(
     private dragonsService: DragonsService,
-    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
-    this.dragonsService.getAllDragons().pipe(
-      takeUntil(this.ngOnDestroy$),
-      tap(req => {
-        this.dragons = req;
-        this.cdr.detectChanges();
-      })
-    ).subscribe();
-  }
-
-  ngOnDestroy(): void {
-    this.ngOnDestroy$.next(null);
-    this.ngOnDestroy$.complete();
+    this.dragons = this.dragonsService.getAllDragons();
   }
 
   trackByFn(index, item): string {

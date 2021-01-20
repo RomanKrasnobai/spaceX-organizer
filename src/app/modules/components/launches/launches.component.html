@@ -1,7 +1,6 @@
-<p>launches works!</p>
 <div class="main-block">
-  <mat-spinner class="spinner" *ngIf="!launches?.length"></mat-spinner>
-  <div *ngFor="let launch of launches; trackBy: trackByFn">
+  <mat-spinner class="spinner" *ngIf="!(launches | async)?.length"></mat-spinner>
+  <div *ngFor="let launch of launches | async; trackBy: trackByFn">
     {{ launch.flight_number }}
   </div>
 </div>

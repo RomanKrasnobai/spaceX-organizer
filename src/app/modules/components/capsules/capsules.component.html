@@ -1,43 +1,4 @@
-<p>Capsules info</p>
-<mat-form-field class="serial-select" appearance="fill">
-  <mat-label>Sort by serial</mat-label>
-  <mat-select (selectionChange)="sortBySerial($event)">
-    <mat-option
-      *ngFor="let cap of capsules; trackBy: trackByFn"
-      [value]="cap?.capsule_serial"
-    >
-      {{cap?.capsule_serial}}
-    </mat-option>
-  </mat-select>
-</mat-form-field>
-
-<span
-  class="material-icons pointer"
-  *ngIf="isHiddenCleanSerial"
-  (click)="cleanSortBySerial()"
->
-  clear
-</span>
-
-<mat-form-field appearance="fill">
-  <mat-label>Sort by status</mat-label>
-  <mat-select (selectionChange)="sortByStatus($event)">
-    <mat-option
-      *ngFor="let status of capsulesStatuses; trackBy: trackByFnStatus"
-      [value]="status"
-    >
-      {{status}}
-    </mat-option>
-  </mat-select>
-</mat-form-field>
-
-<span
-  class="material-icons pointer"
-  *ngIf="isHiddenCleanStatus"
-  (click)="cleanSortByStatus()"
->
-  clear
-</span>
+<app-filters [capsules]="capsules" (emitSerialFilter)="getFilterBySerial($event)"></app-filters>
 
 <table>
   <tr>

@@ -1,7 +1,6 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {LaunchesService} from '../../../shared/services/launches.service';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {Observable} from 'rxjs';
 import {LaunchesInterface} from '../../../shared/models/launches.interface';
 
 @Component({
@@ -10,28 +9,15 @@ import {LaunchesInterface} from '../../../shared/models/launches.interface';
   styleUrls: ['./launches.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LaunchesComponent implements OnInit, OnDestroy {
-  launches: LaunchesInterface[];
-  private ngOnDestroy$: Subject<null> = new Subject<null>();
+export class LaunchesComponent implements OnInit {
+  launches: Observable<LaunchesInterface[]>;
 
   constructor(
     private launchesService: LaunchesService,
-    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
-    this.launchesService.getLaunches().pipe(
-      takeUntil(this.ngOnDestroy$)
-    ).subscribe(data => {
-      this.launches = data;
-      this.cdr.detectChanges();
-      console.log(this.launches);
-    });
-  }
-
-  ngOnDestroy(): void {
-    this.ngOnDestroy$.next(null);
-    this.ngOnDestroy$.complete();
+    this.launches = this.launchesService.getLaunches();
   }
 
   trackByFn(index, item): number {

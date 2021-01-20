@@ -14,7 +14,6 @@ import {takeUntil} from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LeftMenuComponent implements OnInit, OnDestroy {
-  storageValue: RocketsInterface[];
   navigation: NavigationInterface[] = [
     { title: 'Home', link: '/home' },
     { title: 'Rockets', link: '/rockets' },
@@ -22,6 +21,8 @@ export class LeftMenuComponent implements OnInit, OnDestroy {
     { title: 'Dragons', link: '/dragons' },
     { title: 'Launches', link: '/launches' },
   ];
+
+  private storageValue: RocketsInterface[];
   private ngOnDestroy$: Subject<null> = new Subject<null>();
 
   constructor(
