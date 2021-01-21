@@ -12,7 +12,6 @@ import {CapsulesInterface} from '../../../shared/models/capsules.interface';
 })
 export class CapsulesComponent implements OnInit, OnDestroy {
   capsules: CapsulesInterface[];
-  capsulesSerialNum;
   private ngOnDestroy$: Subject<null> = new Subject<null>();
 
   constructor(
@@ -21,12 +20,7 @@ export class CapsulesComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.capsulesService.getAllCapsules().pipe(
-      takeUntil(this.ngOnDestroy$),
-    ).subscribe(req => {
-      this.capsules = req;
-      this.cdr.detectChanges();
-    });
+    this.getCapsules();
   }
 
   ngOnDestroy(): void {
@@ -38,7 +32,22 @@ export class CapsulesComponent implements OnInit, OnDestroy {
     return item.capsule_id;
   }
 
-  getFilterBySerial(event) {
+  getCapsules(): void {
+    this.capsulesService.getAllCapsules().pipe(
+      takeUntil(this.ngOnDestroy$),
+    ).subscribe(req => {
+      this.capsules = req;
+      this.cdr.detectChanges();
+    });
+  }
+
+  getFilters(event): void {
     this.capsules = event;
+  }
+
+  clearFilters(event) {
+    if (event) {
+      this.getCapsules();
+    }
   }
 }

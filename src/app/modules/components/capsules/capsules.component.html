@@ -1,4 +1,9 @@
-<app-filters [capsules]="capsules" (emitSerialFilter)="getFilterBySerial($event)"></app-filters>
+<app-filters [capsules]="capsules"
+             (emitSortBySerial)="getFilters($event)"
+             (emitSortByStatus)="getFilters($event)"
+             (emitClickClear)="clearFilters($event)"
+>
+</app-filters>
 
 <table>
   <tr>
