@@ -1,6 +1,6 @@
-import {ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {takeUntil} from 'rxjs/operators';
-import {Subject} from 'rxjs';
+import {Observable, of, Subject} from 'rxjs';
 import {CapsulesService} from '../../../../shared/services/capsules.service';
 import {CapsulesInterface} from '../../../../shared/models/capsules.interface';
 import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
@@ -10,15 +10,15 @@ import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
   templateUrl: './filters.component.html',
   styleUrls: ['./filters.component.scss']
 })
-export class FiltersComponent implements OnInit {
+export class FiltersComponent implements OnInit, OnDestroy {
   capsulesStatuses = ['retired', 'unknown', 'active', 'destroyed'];
-  capsulesSerialNums;
+  capsulesSerialNums: [string];
   isHiddenCleanSerial = false;
   isHiddenCleanStatus = false;
   formFilters: FormGroup;
   private ngOnDestroy$: Subject<null> = new Subject<null>();
 
-  @Input() capsules: CapsulesInterface[];
+  @Input() capsules: Observable<CapsulesInterface[]>;
   @Output() emitSortBySerial = new EventEmitter();
   @Output() emitSortByStatus = new EventEmitter();
   @Output() emitClickClear = new EventEmitter<boolean>();
@@ -34,11 +34,9 @@ export class FiltersComponent implements OnInit {
     this.getCapsulesBySerial();
   }
 
-  initForm(): void {
-    this.formFilters = this.fb.group({
-      serial: '',
-      status: ''
-    });
+  ngOnDestroy(): void {
+    this.ngOnDestroy$.next(null);
+    this.ngOnDestroy$.complete();
   }
 
   getControl(controlName: string): AbstractControl {
@@ -49,11 +47,10 @@ export class FiltersComponent implements OnInit {
     return item;
   }
 
-  getCapsulesBySerial(): void {
+  private getCapsulesBySerial(): void {
     this.capsulesService.getAllCapsules().pipe(
       takeUntil(this.ngOnDestroy$),
     ).subscribe(req => {
-      this.capsules = req;
       this.capsulesSerialNums = req.map(serial => serial.capsule_serial);
       this.cdr.detectChanges();
     });
@@ -63,8 +60,7 @@ export class FiltersComponent implements OnInit {
     this.capsulesService.getAllCapsules(event.value).pipe(
       takeUntil(this.ngOnDestroy$),
     ).subscribe(req => {
-      this.capsules = req;
-      this.emitSortBySerial.emit(req);
+      this.emitSortBySerial.emit(of(req));
       this.cdr.detectChanges();
     });
     this.isHiddenCleanSerial = true;
@@ -74,8 +70,7 @@ export class FiltersComponent implements OnInit {
     this.capsulesService.getCapsulesByStatus(event.value).pipe(
       takeUntil(this.ngOnDestroy$),
     ).subscribe(req => {
-      this.capsules = req;
-      this.emitSortByStatus.emit(req);
+      this.emitSortByStatus.emit(of(req));
     });
     this.isHiddenCleanStatus = true;
   }
@@ -89,5 +84,12 @@ export class FiltersComponent implements OnInit {
       this.getControl(controlName).reset();
     }
     this.emitClickClear.emit(true);
+  }
+
+  private initForm(): void {
+    this.formFilters = this.fb.group({
+      serial: '',
+      status: ''
+    });
   }
 }

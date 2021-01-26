@@ -35,16 +35,7 @@ export class RocketItemComponent implements OnInit, OnDestroy {
       ).subscribe(data => {
         this.rocketInfo = data;
         this.cdr.detectChanges();
-        for (let i = 0; i < this.storage?.length; i++) {
-          if (this.storage[i].id === this.rocketInfo.id) {
-            this.isHiddenFavouriteIcon = true;
-            this.cdr.detectChanges();
-            break;
-          } else {
-            this.isHiddenFavouriteIcon = false;
-            this.cdr.detectChanges();
-          }
-        }
+        this.isFavourite();
       });
     });
 
@@ -74,5 +65,18 @@ export class RocketItemComponent implements OnInit, OnDestroy {
     this.saveFavouriteRocketService.removeFromFavouriteStorage(id);
     this.isHiddenFavouriteIcon = false;
     this.alertMessageService.nextMessage(this.alertMessageService.messages.remove);
+  }
+
+  private isFavourite() {
+    for (let i = 0; i < this.storage?.length; i++) {
+      if (this.storage[i].id === this.rocketInfo.id) {
+        this.isHiddenFavouriteIcon = true;
+        this.cdr.detectChanges();
+        break;
+      } else {
+        this.isHiddenFavouriteIcon = false;
+        this.cdr.detectChanges();
+      }
+    }
   }
 }

@@ -5,6 +5,8 @@
 >
 </app-filters>
 
+<mat-spinner *ngIf="!(capsules | async)?.length"></mat-spinner>
+
 <table>
   <tr>
     <th>Capsule</th>
@@ -12,7 +14,7 @@
     <th>Status</th>
     <th>Launch</th>
   </tr>
-  <tr *ngFor="let capsule of capsules; trackBy: trackByFn">
+  <tr *ngFor="let capsule of (capsules | async); trackBy: trackByFn">
     <td>{{capsule?.capsule_id}}</td>
     <td>{{capsule?.capsule_serial}}</td>
     <td>{{capsule?.status}}</td>

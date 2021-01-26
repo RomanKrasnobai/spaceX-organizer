@@ -1,7 +1,6 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {CapsulesService} from '../../../shared/services/capsules.service';
-import {Subject} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import {Observable} from 'rxjs';
 import {CapsulesInterface} from '../../../shared/models/capsules.interface';
 
 @Component({
@@ -10,42 +9,30 @@ import {CapsulesInterface} from '../../../shared/models/capsules.interface';
   styleUrls: ['./capsules.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CapsulesComponent implements OnInit, OnDestroy {
-  capsules: CapsulesInterface[];
-  private ngOnDestroy$: Subject<null> = new Subject<null>();
+export class CapsulesComponent implements OnInit {
+  capsules: Observable<CapsulesInterface[]>;
 
   constructor(
     private capsulesService: CapsulesService,
-    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
     this.getCapsules();
   }
 
-  ngOnDestroy(): void {
-    this.ngOnDestroy$.next(null);
-    this.ngOnDestroy$.complete();
-  }
-
   trackByFn(index, item): string {
     return item.capsule_id;
   }
 
-  getCapsules(): void {
-    this.capsulesService.getAllCapsules().pipe(
-      takeUntil(this.ngOnDestroy$),
-    ).subscribe(req => {
-      this.capsules = req;
-      this.cdr.detectChanges();
-    });
+  private getCapsules(): void {
+    this.capsules = this.capsulesService.getAllCapsules();
   }
 
   getFilters(event): void {
     this.capsules = event;
   }
 
-  clearFilters(event) {
+  clearFilters(event): void {
     if (event) {
       this.getCapsules();
     }

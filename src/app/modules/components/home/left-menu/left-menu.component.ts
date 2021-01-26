@@ -57,6 +57,6 @@ export class LeftMenuComponent implements OnInit, OnDestroy {
   }
 
   isFavourite(): string {
-    return this.storageValue?.length ? 'Favourite rockets' : 'No favourite rockets yet';
+    return this.storageValue?.length ? `Favourite rockets(${this.storageValue?.length})` : 'No favourite rockets yet';
   }
 }

@@ -4,7 +4,7 @@ export interface LaunchesInterface {
   launch_date_utc: string;
   rocket_id: string;
   rocket_name: string;
+  mission_name: string;
   customer: string;
-  nationality: string;
   launch_success: boolean;
 }

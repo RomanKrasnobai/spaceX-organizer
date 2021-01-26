@@ -5,9 +5,9 @@ import {MaterialModule} from '../../../material.module';
 
 @NgModule({
   declarations: [LaunchesComponent],
-  imports: [
-    CommonModule,
-    MaterialModule,
-  ]
+    imports: [
+        CommonModule,
+        MaterialModule,
+    ]
 })
 export class LaunchesModule { }

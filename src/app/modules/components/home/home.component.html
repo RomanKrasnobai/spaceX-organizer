@@ -1,10 +1,12 @@
 <div class="wrapper">
   <img alt="header" class="header-img" src="../../../../assets/images/spaceX_Store_Header.jpg">
-  <h2>{{(spaceXInfo| async)?.name }}</h2>
-  <p>CEO: {{(spaceXInfo | async)?.ceo}}</p>
-  <p>COO: {{(spaceXInfo | async)?.coo}}</p>
-  <p>CTO Propulsion: {{(spaceXInfo | async)?.cto_propulsion}}</p>
-  <p>Employees: {{(spaceXInfo | async)?.employees}}</p>
-  <p>Founded in: {{(spaceXInfo | async)?.founded}}</p>
-  <p>{{(spaceXInfo | async)?.summary}}</p>
+  <div *ngFor="let data of spaceXInfo| async; trackBy: trackByFn">
+    <h2>{{data.name }}</h2>
+    <p>CEO: {{data.ceo}}</p>
+    <p>COO: {{data.coo}}</p>
+    <p>CTO Propulsion: {{data.cto_propulsion}}</p>
+    <p>Employees: {{data.employees}}</p>
+    <p>Founded in: {{data.founded}}</p>
+    <p>{{data.summary}}</p>
+  </div>
 </div>
