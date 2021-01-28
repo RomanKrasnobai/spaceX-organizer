@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HomeComponent } from './home.component';
-import {LeftMenuComponent} from './left-menu/left-menu.component';
+import {LeftMenuComponent} from '../left-menu/left-menu.component';
 import {InfoService} from '../../../shared/services/info.service';
 import {CommonModule} from '@angular/common';
 import {MaterialModule} from '../../../material.module';

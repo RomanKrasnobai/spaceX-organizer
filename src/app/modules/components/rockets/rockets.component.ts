@@ -1,7 +1,6 @@
-import {Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import { RocketsService } from 'src/app/shared/services/rockets.service';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import {Observable} from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { RocketsInterface } from '../../../shared/models/rockets.interface';
 
@@ -11,28 +10,16 @@ import { RocketsInterface } from '../../../shared/models/rockets.interface';
   styleUrls: ['./rockets.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RocketsComponent implements OnInit, OnDestroy  {
-  rockets: RocketsInterface[];
+export class RocketsComponent implements OnInit  {
+  rockets: Observable<RocketsInterface[]>;
   setDate: FormControl = new FormControl();
-  private ngOnDestroy$: Subject<null> = new Subject<null>();
 
   constructor(
     private rocketsService: RocketsService,
-    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
-    this.rocketsService.getAllRockets()
-      .pipe(takeUntil(this.ngOnDestroy$))
-      .subscribe(req => {
-        this.rockets = req;
-        this.cdr.detectChanges();
-      });
-  }
-
-  ngOnDestroy(): void {
-    this.ngOnDestroy$.next(null);
-    this.ngOnDestroy$.complete();
+    this.rockets = this.rocketsService.getAllRockets();
   }
 
   showAllData(): void {

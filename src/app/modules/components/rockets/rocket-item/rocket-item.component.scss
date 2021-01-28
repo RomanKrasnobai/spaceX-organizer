@@ -9,11 +9,17 @@
 
 .back-arrow {
   display: flex;
+  width: 100%;
   align-items: center;
   margin: 20px 0;
   text-decoration: none;
   color: #000000;
   outline: none;
+
+  &:hover i {
+    width: auto;
+    background-color: #E9E2E2;
+  }
 }
 
 .favourite-title {
@@ -21,6 +27,15 @@
   align-items: center;
   & span:first-child {
     margin-right: 10px;
+  }
+
+  .favourite-icon {
+    padding: 1px;
+
+    &:hover {
+      background-color: #E9E2E2;
+      border-radius: 8px;
+    }
   }
 }
 

@@ -11,14 +11,14 @@
   <div class="favourite-title">
     <ng-container *ngIf="!isHiddenFavouriteIcon; else favouriteTitle"><span>Add rocket to favourite</span></ng-container>
     <ng-template #favouriteTitle><span>Favourite rocket!</span></ng-template>
-    <span class="material-icons pointer"
+    <span class="material-icons pointer favourite-icon"
           matTooltip="Add to Favourite"
           *ngIf="!isHiddenFavouriteIcon"
           (click)="saveToFavourite()"
     >
       favorite_border
     </span>
-    <span class="material-icons pointer"
+    <span class="material-icons pointer favourite-icon"
           *ngIf="isHiddenFavouriteIcon"
           matTooltip="Remove from favourite"
           (click)="removeFromFavourite(rocketInfo?.id)"

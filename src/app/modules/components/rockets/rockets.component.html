@@ -3,7 +3,7 @@
   <mat-form-field appearance="fill">
     <mat-label>Filtering by date</mat-label>
     <mat-select [formControl]="setDate">
-      <mat-option *ngFor="let flight of rockets; trackBy: trackByFn" [value]="flight.first_flight">
+      <mat-option *ngFor="let flight of rockets | async; trackBy: trackByFn" [value]="flight.first_flight">
         {{flight.first_flight}}
       </mat-option>
     </mat-select>
@@ -12,11 +12,12 @@
   <button mat-button (click)="showAllData()" *ngIf="setDate?.value">Show All data</button>
 
   <div class="rocket-item pointer"
-    *ngFor="let rocket of rockets | showByDate: setDate?.value; trackBy: trackByFn"
+    *ngFor="let rocket of rockets | async | showByDate: setDate?.value; trackBy: trackByFn"
     [routerLink]="['/rockets', rocket.rocket_id]"
   >
     <p>Name: <span class="name">{{rocket.rocket_name}}</span></p>
     <div>Country: {{rocket.country}}</div>
+    <div>Flight date: {{rocket.first_flight}}</div>
     <img class="img" src="{{rocket.flickr_images[0]}}" width="500px" alt="img">
   </div>
 </div>

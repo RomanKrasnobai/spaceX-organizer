@@ -1,9 +1,9 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
-import {SaveFavouriteRocketService} from '../../../../shared/services/save-favourite-rocket.service';
-import {NavigationInterface} from '../../../../shared/models/navigation.interface';
+import {SaveFavouriteRocketService} from '../../../shared/services/save-favourite-rocket.service';
+import {NavigationInterface} from '../../../shared/models/navigation.interface';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
-import {FavouriteRocketsModalComponent} from '../../modal-windows/favourite-rockets-modal/favourite-rockets-modal.component';
-import {RocketsInterface} from '../../../../shared/models/rockets.interface';
+import {FavouriteRocketsModalComponent} from '../modal-windows/favourite-rockets-modal/favourite-rockets-modal.component';
+import {RocketsInterface} from '../../../shared/models/rockets.interface';
 import {Subject} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 
@@ -21,8 +21,8 @@ export class LeftMenuComponent implements OnInit, OnDestroy {
     { title: 'Dragons', link: '/dragons' },
     { title: 'Launches', link: '/launches' },
   ];
-
   private storageValue: RocketsInterface[];
+
   private ngOnDestroy$: Subject<null> = new Subject<null>();
 
   constructor(

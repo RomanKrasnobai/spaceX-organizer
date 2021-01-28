@@ -10,6 +10,8 @@ import { DragonsModule } from './modules/components/dragons/dragons.module';
 import {CapsulesModule} from './modules/components/capsules/capsules.module';
 import {FavouriteRocketsModalModule} from './modules/components/modal-windows/favourite-rockets-modal/favourite-rockets-modal.module';
 import {LaunchesModule} from './modules/components/launches/launches.module';
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import {HttpErrorInterceptor} from './shared/interceptors/http-error.interceptor';
 
 
 @NgModule({
@@ -28,7 +30,13 @@ import {LaunchesModule} from './modules/components/launches/launches.module';
     FavouriteRocketsModalModule,
     LaunchesModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
