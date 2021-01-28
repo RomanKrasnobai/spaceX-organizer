@@ -21,15 +21,25 @@ import {takeUntil} from 'rxjs/operators';
   styleUrls: ['./launches.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LaunchesComponent implements OnInit, AfterViewInit, OnDestroy {
-  // launches: Observable<LaunchesInterface[]>;
-  launchesDataSource = new MatTableDataSource<LaunchesInterface[]>();
+export class LaunchesComponent implements OnInit, OnDestroy {
+  launchesDataSource: MatTableDataSource<LaunchesInterface[]>;
   displayedColumns: string[] = ['flight_number', 'mission_name', 'launch_year'];
+
+  isShowSpinner: boolean;
 
   private ngOnDestroy$: Subject<null> = new Subject<null>();
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) set matPaginator(mp: MatPaginator) {
+    if (mp !== undefined) {
+      this.launchesDataSource.paginator = mp;
+    }
+  }
+
+  @ViewChild(MatSort) set matSort(sr: MatSort) {
+    if (sr !== undefined) {
+      this.launchesDataSource.sort = sr;
+    }
+  }
 
   constructor(
     private launchesService: LaunchesService,
@@ -43,14 +53,9 @@ export class LaunchesComponent implements OnInit, AfterViewInit, OnDestroy {
     ).subscribe(
     req => {
       this.launchesDataSource = new MatTableDataSource<LaunchesInterface[]>(req);
+      this.isShowSpinner = !!this.launchesDataSource?.filteredData.length;
       this.cdr.detectChanges();
     });
-  }
-
-  ngAfterViewInit(): void {
-    this.launchesDataSource.paginator = this.paginator;
-    this.launchesDataSource.sort = this.sort;
-    this.cdr.detectChanges();
   }
 
   ngOnDestroy(): void {

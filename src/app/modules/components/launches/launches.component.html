@@ -1,5 +1,4 @@
-<div class="main-block">
-  <mat-spinner class="spinner" *ngIf="!launchesDataSource?.filteredData.length"></mat-spinner>
+<div class="main-block" *ngIf="isShowSpinner; else elseBlock">
 
   <mat-form-field>
     <mat-label>Filter</mat-label>
@@ -30,5 +29,13 @@
     </tr>
   </table>
 
-  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  <mat-paginator
+    pageSize="10"
+    [pageSizeOptions]="[5, 10, 25, 100]"
+  >
+  </mat-paginator>
 </div>
+
+<ng-template #elseBlock>
+  <mat-spinner></mat-spinner>
+</ng-template>

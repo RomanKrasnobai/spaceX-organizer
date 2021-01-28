@@ -1,6 +1,10 @@
 .main-block {
   position: relative;
 
+  table.mat-table {
+    width: 100vh;
+  }
+
   .spinner {
     position: absolute;
     left: 440px;

@@ -1,12 +1,10 @@
-<div class="block-wrapper">
+<div class="block-wrapper" *ngIf="rocketInfo; else elseBlock">
   <a class="back-arrow pointer" [routerLink]="['/rockets']">
     <span class="material-icons">
       arrow_back
     </span>
     <i>Back</i>
   </a>
-
-  <mat-spinner *ngIf="!rocketInfo"></mat-spinner>
 
   <div class="favourite-title">
     <ng-container *ngIf="!isHiddenFavouriteIcon; else favouriteTitle"><span>Add rocket to favourite</span></ng-container>
@@ -34,3 +32,7 @@
     <img class="img" alt="img" src="{{img}}" width="500">
   </ng-container>
 </div>
+
+<ng-template #elseBlock>
+  <mat-spinner></mat-spinner>
+</ng-template>
