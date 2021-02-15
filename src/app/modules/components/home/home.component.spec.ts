@@ -5,7 +5,7 @@ import {InfoService} from '../../../shared/services/info.service';
 import {CommonModule} from '@angular/common';
 import {MaterialModule} from '../../../material.module';
 import {RouterModule} from '@angular/router';
-import {HttpClient} from '@angular/common/http';
+import {HttpClientModule} from '@angular/common/http';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -20,6 +20,7 @@ describe('HomeComponent', () => {
         CommonModule,
         MaterialModule,
         RouterModule,
+        HttpClientModule,
       ],
       declarations: [ HomeComponent, LeftMenuComponent ]
     })
@@ -46,10 +47,10 @@ describe('HomeComponent', () => {
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(component)?.toBeTruthy();
   });
 
   it('should call infoService', () => {
-    expect(spy.calls.any).toBeTruthy();
+    expect(spy?.calls.any)?.toBeTruthy();
   });
 });

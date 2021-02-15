@@ -4,7 +4,7 @@
      routerLink="{{ route.link }}"
      routerLinkActive="active-route"
   >
-    {{route.title}}
+    {{ route.title }}
   </a>
 </div>
 
@@ -12,8 +12,7 @@
   <button mat-button
           (click)="openFavouriteModal()"
   >
-    <span class="material-icons"
-    >
+    <span class="material-icons">
       favorite
     </span>
     {{isFavourite()}}

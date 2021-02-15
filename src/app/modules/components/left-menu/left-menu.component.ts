@@ -1,4 +1,10 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import {SaveFavouriteRocketService} from '../../../shared/services/save-favourite-rocket.service';
 import {NavigationInterface} from '../../../shared/models/navigation.interface';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
@@ -39,6 +45,7 @@ export class LeftMenuComponent implements OnInit, OnDestroy {
         this.cdr.detectChanges();
       });
   }
+
   ngOnDestroy() {
     this.ngOnDestroy$.next(null);
     this.ngOnDestroy$.complete();
