@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { RocketItemComponent } from './rocket-item.component';
 import {HttpClientModule} from '@angular/common/http';
@@ -10,7 +10,7 @@ describe('RocketItemComponent', () => {
   let component: RocketItemComponent;
   let fixture: ComponentFixture<RocketItemComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientModule,
